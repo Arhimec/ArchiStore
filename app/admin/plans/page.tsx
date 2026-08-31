@@ -5,10 +5,15 @@ import { FileSpreadsheet, Plus, ArrowLeft, CheckCircle2, XCircle } from 'lucide-
 export const revalidate = 0;
 
 export default async function AdminPlansPage() {
-  const plans = await prisma.plan.findMany({
-    orderBy: { createdAt: 'desc' },
-    include: { images: true, orderItems: true },
-  });
+  let plans: any[] = [];
+  try {
+    plans = await prisma.plan.findMany({
+      orderBy: { createdAt: 'desc' },
+      include: { images: true, orderItems: true },
+    });
+  } catch (err) {
+    console.error('Database query error on AdminPlansPage:', err);
+  }
 
   return (
     <div className="space-y-8 py-4">

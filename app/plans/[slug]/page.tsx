@@ -11,12 +11,17 @@ export default async function PlanDetailPage({
 }) {
   const { slug } = await params;
 
-  const plan = await prisma.plan.findUnique({
-    where: { slug },
-    include: {
-      images: { orderBy: { sortOrder: 'asc' } },
-    },
-  });
+  let plan = null;
+  try {
+    plan = await prisma.plan.findUnique({
+      where: { slug },
+      include: {
+        images: { orderBy: { sortOrder: 'asc' } },
+      },
+    });
+  } catch (err) {
+    console.error('Database query error on PlanDetailPage:', err);
+  }
 
   if (!plan) {
     notFound();

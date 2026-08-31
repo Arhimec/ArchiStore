@@ -6,13 +6,18 @@ import { ArrowLeft } from 'lucide-react';
 export const revalidate = 0;
 
 export default async function AdminOrdersPage() {
-  const orders = await prisma.order.findMany({
-    orderBy: { createdAt: 'desc' },
-    include: {
-      items: { include: { plan: true } },
-      downloadTokens: { include: { auditLogs: true } },
-    },
-  });
+  let orders: any[] = [];
+  try {
+    orders = await prisma.order.findMany({
+      orderBy: { createdAt: 'desc' },
+      include: {
+        items: { include: { plan: true } },
+        downloadTokens: { include: { auditLogs: true } },
+      },
+    });
+  } catch (err) {
+    console.error('Database query error on AdminOrdersPage:', err);
+  }
 
   return (
     <div className="space-y-8 py-4">

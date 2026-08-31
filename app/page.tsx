@@ -5,13 +5,18 @@ import { Compass, ArrowRight, ShieldCheck, FileCheck, Layers, Sparkles, CheckCir
 export const revalidate = 0;
 
 export default async function HomePage() {
-  const featuredPlans = await prisma.plan.findMany({
-    where: { isPublished: true, featured: true },
-    take: 3,
-    include: {
-      images: { orderBy: { sortOrder: 'asc' } },
-    },
-  });
+  let featuredPlans: any[] = [];
+  try {
+    featuredPlans = await prisma.plan.findMany({
+      where: { isPublished: true, featured: true },
+      take: 3,
+      include: {
+        images: { orderBy: { sortOrder: 'asc' } },
+      },
+    });
+  } catch (err) {
+    console.error('Database query error on HomePage:', err);
+  }
 
   return (
     <div className="space-y-16 py-4">

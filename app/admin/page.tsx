@@ -5,11 +5,21 @@ import { LayoutDashboard, FileSpreadsheet, ShoppingBag, ShieldAlert, ArrowRight,
 export const revalidate = 0;
 
 export default async function AdminDashboardPage() {
-  const plansCount = await prisma.plan.count();
-  const ordersCount = await prisma.order.count();
-  const completedOrders = await prisma.order.findMany({ where: { status: 'COMPLETED' } });
-  const totalRevenue = completedOrders.reduce((sum, o) => sum + o.totalAmount, 0);
-  const auditLogsCount = await prisma.auditLog.count();
+  let plansCount = 0;
+  let ordersCount = 0;
+  let completedOrders: any[] = [];
+  let totalRevenue = 0;
+  let auditLogsCount = 0;
+
+  try {
+    plansCount = await prisma.plan.count();
+    ordersCount = await prisma.order.count();
+    completedOrders = await prisma.order.findMany({ where: { status: 'COMPLETED' } });
+    totalRevenue = completedOrders.reduce((sum, o) => sum + o.totalAmount, 0);
+    auditLogsCount = await prisma.auditLog.count();
+  } catch (err) {
+    console.error('Database query error on AdminDashboardPage:', err);
+  }
 
   return (
     <div className="space-y-8 py-4">

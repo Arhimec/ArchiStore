@@ -5,15 +5,20 @@ import { ArrowLeft, ShieldAlert, DownloadCloud } from 'lucide-react';
 export const revalidate = 0;
 
 export default async function AdminAuditLogsPage() {
-  const auditLogs = await prisma.auditLog.findMany({
-    orderBy: { timestamp: 'desc' },
-    include: {
-      token: {
-        include: { order: true },
+  let auditLogs: any[] = [];
+  try {
+    auditLogs = await prisma.auditLog.findMany({
+      orderBy: { timestamp: 'desc' },
+      include: {
+        token: {
+          include: { order: true },
+        },
       },
-    },
-    take: 50,
-  });
+      take: 50,
+    });
+  } catch (err) {
+    console.error('Database query error on AdminAuditLogsPage:', err);
+  }
 
   return (
     <div className="space-y-8 py-4">
