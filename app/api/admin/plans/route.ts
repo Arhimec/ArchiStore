@@ -29,29 +29,43 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Validation Error', details: parsed.error.format() }, { status: 400 });
     }
 
+    const { images, ...planData } = parsed.data;
+
+    const imagesToCreate = images && images.length > 0
+      ? images.map((img, idx) => ({
+          url: img.url,
+          caption: img.caption || (img.isFloorPlan ? 'Floor Plan Layout' : 'Exterior Render'),
+          isFloorPlan: !!img.isFloorPlan,
+          sortOrder: img.sortOrder ?? idx,
+        }))
+      : [
+          {
+            url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
+            caption: 'Front Exterior Render',
+            isFloorPlan: false,
+            sortOrder: 0,
+          },
+          {
+            url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
+            caption: 'Floor Plan Preview',
+            isFloorPlan: true,
+            sortOrder: 1,
+          },
+        ];
+
     const plan = await prisma.plan.create({
       data: {
-        ...parsed.data,
+        ...planData,
         images: {
-          create: [
-            {
-              url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
-              caption: 'Front Render',
-              isFloorPlan: false,
-              sortOrder: 0,
-            },
-            {
-              url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
-              caption: 'Floor Plan Preview',
-              isFloorPlan: true,
-              sortOrder: 1,
-            },
-          ],
+          create: imagesToCreate,
         },
+      },
+      include: {
+        images: true,
       },
     });
 
-    return NextResponse.json({ success: true, message: 'Plan created successfully', data: plan });
+    return NextResponse.json({ success: true, message: 'Plan created successfully', data: plan }, { status: 201 });
   } catch (err: any) {
     return NextResponse.json({ error: 'Failed to create plan', message: err?.message }, { status: 500 });
   }

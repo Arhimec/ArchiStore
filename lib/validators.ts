@@ -50,6 +50,16 @@ export const PlanCreateSchema = z.object({
   isPublished: z.boolean().default(true),
   featured: z.boolean().default(false),
   pdfFileName: z.string().min(1),
+  images: z
+    .array(
+      z.object({
+        url: z.string().url('Must be a valid image URL'),
+        caption: z.string().optional(),
+        isFloorPlan: z.boolean().default(false),
+        sortOrder: z.number().int().default(0),
+      })
+    )
+    .optional(),
 });
 
 export type PlanCreateInput = z.infer<typeof PlanCreateSchema>;
