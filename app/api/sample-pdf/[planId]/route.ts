@@ -25,7 +25,7 @@ export async function GET(
     dimensions: `${plan.widthFt}' W x ${plan.depthFt}' D`,
   });
 
-  return new NextResponse(samplePdfBytes, {
+  return new NextResponse(new Uint8Array(samplePdfBytes), {
     status: 200,
     headers: {
       'Content-Type': 'application/pdf',

@@ -34,7 +34,7 @@ export async function GET(req: NextRequest) {
 
     const watermarkedBuffer = await watermarkImage(inputBuffer);
 
-    return new NextResponse(watermarkedBuffer, {
+    return new NextResponse(new Uint8Array(watermarkedBuffer), {
       status: 200,
       headers: {
         'Content-Type': 'image/webp',
@@ -56,7 +56,7 @@ export async function GET(req: NextRequest) {
 
     const watermarkedFallback = await watermarkImage(fallbackBuffer);
 
-    return new NextResponse(watermarkedFallback, {
+    return new NextResponse(new Uint8Array(watermarkedFallback), {
       status: 200,
       headers: {
         'Content-Type': 'image/webp',

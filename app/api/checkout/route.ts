@@ -32,6 +32,7 @@ export async function POST(req: NextRequest) {
     // Fetch plan
     const plan = await prisma.plan.findUnique({
       where: { id: planId },
+      include: { images: true },
     });
 
     if (!plan) {
