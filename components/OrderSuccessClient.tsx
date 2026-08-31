@@ -4,10 +4,12 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { CheckCircle2, Download, ShieldCheck, Clock, FileCheck2, ArrowRight } from 'lucide-react';
+import { useLanguage } from '@/lib/i18n/context';
 
 export default function OrderSuccessClient() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get('session_id');
+  const { t } = useLanguage();
 
   const [loading, setLoading] = useState(true);
   const [orderDetails, setOrderDetails] = useState<any>(null);
@@ -75,14 +77,14 @@ export default function OrderSuccessClient() {
           <CheckCircle2 className="w-10 h-10 stroke-[2.5]" />
         </div>
 
-        <h1 className="text-3xl font-extrabold text-white">Order Confirmed & Digital Assets Ready</h1>
+        <h1 className="text-3xl font-extrabold text-white">{t('success.title')}</h1>
         <p className="text-slate-300 text-sm max-w-lg mx-auto">
-          Thank you for your purchase. Your single-build architectural stock plan license is active, and your private construction PDF package has been generated.
+          {t('success.desc')}
         </p>
 
         {sessionId && (
           <div className="inline-block bg-slate-950 px-4 py-1.5 rounded-lg border border-slate-800 text-xs font-mono text-slate-400">
-            SESSION ID: <span className="text-amber-400 font-bold">{sessionId}</span>
+            {t('success.sessionId')}: <span className="text-amber-400 font-bold">{sessionId}</span>
           </div>
         )}
       </div>
@@ -92,10 +94,10 @@ export default function OrderSuccessClient() {
         <div className="flex items-center justify-between border-b border-slate-800 pb-4">
           <div className="flex items-center gap-2 font-bold text-white text-base">
             <FileCheck2 className="w-5 h-5 text-amber-500" />
-            Your Time-Limited Secure Download Token
+            {t('success.tokenTitle')}
           </div>
           <span className="text-xs bg-amber-500/10 border border-amber-500/30 text-amber-400 font-mono px-3 py-1 rounded-full">
-            Valid for 72 Hours • Max 3 Attempts
+            {t('success.tokenBadge')}
           </span>
         </div>
 
@@ -107,7 +109,7 @@ export default function OrderSuccessClient() {
           <div className="space-y-4">
             <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
-                <span className="text-xs font-mono text-slate-500 block">SIGNED DIGITAL DOWNLOAD URL</span>
+                <span className="text-xs font-mono text-slate-500 block">{t('success.signedUrl')}</span>
                 <span className="text-xs font-mono text-slate-300 break-all">{downloadUrl}</span>
               </div>
 
@@ -117,18 +119,18 @@ export default function OrderSuccessClient() {
                 className="btn-primary py-3 px-6 text-sm flex items-center justify-center gap-2 whitespace-nowrap"
               >
                 <Download className="w-4 h-4 text-slate-950" />
-                Download Construction PDF Package
+                {t('success.downloadBtn')}
               </a>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-400">
               <div className="flex items-center gap-2 bg-slate-950/60 p-3 rounded-lg border border-slate-800">
                 <Clock className="w-4 h-4 text-amber-400" />
-                <span>Expiration: 72 hours from purchase timestamp</span>
+                <span>{t('success.expirationNote')}</span>
               </div>
               <div className="flex items-center gap-2 bg-slate-950/60 p-3 rounded-lg border border-slate-800">
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span>Audit Trail Logging: IP & Download Count</span>
+                <span>{t('success.auditNote')}</span>
               </div>
             </div>
           </div>
@@ -142,7 +144,7 @@ export default function OrderSuccessClient() {
       {/* Return to Catalog button */}
       <div className="flex justify-center pt-4">
         <Link href="/catalog" className="btn-secondary text-sm px-6 py-3 flex items-center gap-2">
-          Return to Architectural Stock Catalog
+          {t('success.returnBtn')}
           <ArrowRight className="w-4 h-4" />
         </Link>
       </div>

@@ -4,6 +4,7 @@ import { useState, useEffect, useTransition } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Search, Filter, Compass, SlidersHorizontal, ArrowUpDown, ArrowRight, RefreshCw } from 'lucide-react';
+import { useLanguage } from '@/lib/i18n/context';
 
 interface PlanImage {
   id: string;
@@ -31,6 +32,7 @@ interface Plan {
 export default function CatalogClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { t } = useLanguage();
 
   const [search, setSearch] = useState(searchParams.get('search') || '');
   const [minSqm, setMinSqm] = useState(searchParams.get('minSqm') || '50');
@@ -93,7 +95,7 @@ export default function CatalogClient() {
           <Search className="w-5 h-5 absolute left-3.5 top-3.5 text-slate-400" />
           <input
             type="text"
-            placeholder="Search by keyword, style, or feature..."
+            placeholder={t('catalog.searchPlaceholder')}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-11 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 transition-colors"
@@ -103,7 +105,7 @@ export default function CatalogClient() {
         <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
           <div className="flex items-center gap-2 text-xs text-slate-400 font-mono">
             <SlidersHorizontal className="w-4 h-4 text-amber-500" />
-            Showing <strong className="text-white">{plans.length}</strong> Stock Plans
+            {t('catalog.showing')} <strong className="text-white">{plans.length}</strong> {t('catalog.stockPlans')}
           </div>
 
           <div className="flex items-center gap-2">
@@ -113,11 +115,11 @@ export default function CatalogClient() {
               onChange={(e) => setSortBy(e.target.value)}
               className="bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs font-semibold text-slate-200 focus:outline-none focus:border-amber-500"
             >
-              <option value="newest">Sort by: Newest First</option>
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
-              <option value="sqm-asc">Sq Meters: Small to Large</option>
-              <option value="sqm-desc">Sq Meters: Large to Small</option>
+              <option value="newest">{t('catalog.sortNewest')}</option>
+              <option value="price-asc">{t('catalog.sortPriceAsc')}</option>
+              <option value="price-desc">{t('catalog.sortPriceDesc')}</option>
+              <option value="sqm-asc">{t('catalog.sortSqmAsc')}</option>
+              <option value="sqm-desc">{t('catalog.sortSqmDesc')}</option>
             </select>
           </div>
         </div>
@@ -131,25 +133,25 @@ export default function CatalogClient() {
             <div className="flex items-center justify-between border-b border-slate-800 pb-3">
               <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
                 <Filter className="w-4 h-4 text-amber-500" />
-                Multi-Faceted Filters
+                {t('catalog.filters')}
               </h3>
               <button
                 onClick={resetFilters}
                 className="text-[11px] text-amber-400 hover:underline flex items-center gap-1 font-mono"
               >
-                <RefreshCw className="w-3 h-3" /> Reset
+                <RefreshCw className="w-3 h-3" /> {t('catalog.reset')}
               </button>
             </div>
 
             {/* Square Meters Range Controls */}
             <div className="space-y-2">
               <div className="flex justify-between text-xs font-semibold text-slate-300">
-                <span>Square Meters</span>
+                <span>{t('catalog.squareMeters')}</span>
                 <span className="font-mono text-amber-400">{minSqm} - {maxSqm} m²</span>
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="text-[10px] text-slate-400">Min m²</label>
+                  <label className="text-[10px] text-slate-400">{t('catalog.minSqm')}</label>
                   <input
                     type="number"
                     value={minSqm}
@@ -158,7 +160,7 @@ export default function CatalogClient() {
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] text-slate-400">Max m²</label>
+                  <label className="text-[10px] text-slate-400">{t('catalog.maxSqm')}</label>
                   <input
                     type="number"
                     value={maxSqm}
@@ -171,7 +173,7 @@ export default function CatalogClient() {
 
             {/* Bedrooms Count */}
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-300 block">Bedrooms Count</label>
+              <label className="text-xs font-semibold text-slate-300 block">{t('catalog.bedrooms')}</label>
               <div className="grid grid-cols-5 gap-1 text-xs">
                 {['0', '1', '2', '3', '4+'].map((val, idx) => (
                   <button
@@ -183,7 +185,7 @@ export default function CatalogClient() {
                         : 'bg-slate-950 text-slate-300 border-slate-800 hover:border-slate-700'
                     }`}
                   >
-                    {val === '0' ? 'Any' : val}
+                    {val === '0' ? t('catalog.any') : val}
                   </button>
                 ))}
               </div>
@@ -191,32 +193,32 @@ export default function CatalogClient() {
 
             {/* Architectural Style */}
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-300 block">Architectural Style</label>
+              <label className="text-xs font-semibold text-slate-300 block">{t('catalog.style')}</label>
               <select
                 value={style}
                 onChange={(e) => setStyle(e.target.value)}
                 className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:border-amber-500"
               >
-                <option value="ALL">All Styles</option>
-                <option value="Farmhouse">Modern Farmhouse</option>
-                <option value="Craftsman">Luxury Craftsman</option>
-                <option value="Modern">Minimalist Modern</option>
+                <option value="ALL">{t('catalog.allStyles')}</option>
+                <option value="Farmhouse">{t('nav.farmhouse')}</option>
+                <option value="Craftsman">{t('nav.craftsman')}</option>
+                <option value="Modern">{t('nav.modern')}</option>
                 <option value="Contemporary">Contemporary</option>
               </select>
             </div>
 
             {/* Foundation Type */}
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-300 block">Foundation Type</label>
+              <label className="text-xs font-semibold text-slate-300 block">{t('catalog.foundation')}</label>
               <select
                 value={foundationType}
                 onChange={(e) => setFoundationType(e.target.value)}
                 className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:border-amber-500"
               >
-                <option value="ALL">All Foundations</option>
-                <option value="Slab">Monolithic Slab</option>
-                <option value="Crawlspace">Vented Crawlspace</option>
-                <option value="Basement">Full Daylight Basement</option>
+                <option value="ALL">{t('catalog.allFoundations')}</option>
+                <option value="Slab">{t('catalog.slab')}</option>
+                <option value="Crawlspace">{t('catalog.crawlspace')}</option>
+                <option value="Basement">{t('catalog.basement')}</option>
               </select>
             </div>
           </div>
@@ -232,12 +234,12 @@ export default function CatalogClient() {
           ) : plans.length === 0 ? (
             <div className="glass-card p-12 text-center space-y-4">
               <Compass className="w-12 h-12 text-slate-600 mx-auto" />
-              <h3 className="text-lg font-bold text-white">No Architectural Plans Found</h3>
+              <h3 className="text-lg font-bold text-white">{t('catalog.noPlansFound')}</h3>
               <p className="text-slate-400 text-xs max-w-sm mx-auto">
-                No stock plans matched your filter criteria. Try adjusting the square meters range or selecting 'All Styles'.
+                {t('catalog.noPlansDesc')}
               </p>
               <button onClick={resetFilters} className="btn-secondary text-xs">
-                Reset All Filters
+                {t('catalog.resetAllFilters')}
               </button>
             </div>
           ) : (
@@ -275,19 +277,19 @@ export default function CatalogClient() {
                     </div>
 
                     <div className="grid grid-cols-2 gap-2 text-xs text-slate-300 bg-slate-950/50 p-3 rounded-xl border border-slate-800/60 font-mono">
-                      <div><span className="text-slate-500">SQ M:</span> <strong className="text-white">{plan.sqm} m²</strong></div>
-                      <div><span className="text-slate-500">BEDS:</span> <strong className="text-white">{plan.bedrooms}</strong></div>
-                      <div><span className="text-slate-500">BATHS:</span> <strong className="text-white">{plan.bathrooms}</strong></div>
-                      <div><span className="text-slate-500">FOUNDATION:</span> <strong className="text-white">{plan.foundationType}</strong></div>
-                      <div><span className="text-slate-500">DIMENSIONS:</span> <strong className="text-white">{plan.widthM}m x {plan.depthM}m</strong></div>
-                      <div><span className="text-slate-500">STORIES:</span> <strong className="text-white">{plan.stories} Story</strong></div>
+                      <div><span className="text-slate-500">{t('catalog.sqmBadge')}:</span> <strong className="text-white">{plan.sqm} m²</strong></div>
+                      <div><span className="text-slate-500">{t('catalog.bedsBadge')}:</span> <strong className="text-white">{plan.bedrooms}</strong></div>
+                      <div><span className="text-slate-500">{t('catalog.bathsBadge')}:</span> <strong className="text-white">{plan.bathrooms}</strong></div>
+                      <div><span className="text-slate-500">{t('catalog.foundationBadge')}:</span> <strong className="text-white">{plan.foundationType}</strong></div>
+                      <div><span className="text-slate-500">{t('catalog.dimensionsBadge')}:</span> <strong className="text-white">{plan.widthM}m x {plan.depthM}m</strong></div>
+                      <div><span className="text-slate-500">{t('catalog.storiesBadge')}:</span> <strong className="text-white">{plan.stories} {t('catalog.storyUnit')}</strong></div>
                     </div>
 
                     <Link
                       href={`/plans/${plan.slug}`}
                       className="btn-secondary w-full text-center text-xs py-2.5 flex items-center justify-center gap-2"
                     >
-                      View Plan Details & Watermarked Previews
+                      {t('catalog.viewDetails')}
                       <ArrowRight className="w-4 h-4" />
                     </Link>
                   </div>

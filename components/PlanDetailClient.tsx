@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Download, ShieldCheck, CheckSquare, Square, ShoppingCart, Lock, FileText, CheckCircle2, ArrowRight } from 'lucide-react';
+import { useLanguage } from '@/lib/i18n/context';
 
 interface PlanImage {
   id: string;
@@ -34,6 +35,8 @@ interface Plan {
 
 export default function PlanDetailClient({ plan }: { plan: Plan }) {
   const router = useRouter();
+  const { t } = useLanguage();
+
   const [activeTab, setActiveTab] = useState<'renders' | 'floorplans'>('renders');
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [disclaimerChecked, setDisclaimerChecked] = useState(false);
@@ -94,7 +97,7 @@ export default function PlanDetailClient({ plan }: { plan: Plan }) {
       {/* Top Header & Breadcrumb */}
       <div className="space-y-3 border-b border-slate-800 pb-6">
         <div className="flex items-center gap-3 text-xs font-mono text-slate-400">
-          <span>CATALOG</span> / <span className="text-amber-400">{plan.style.toUpperCase()}</span> / <span className="text-white">{plan.title}</span>
+          <span>{t('pdp.catalog')}</span> / <span className="text-amber-400">{plan.style.toUpperCase()}</span> / <span className="text-white">{plan.title}</span>
         </div>
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
@@ -102,7 +105,7 @@ export default function PlanDetailClient({ plan }: { plan: Plan }) {
             <p className="text-slate-400 text-sm mt-1">{plan.description}</p>
           </div>
           <div className="bg-slate-900 border border-amber-500/30 px-6 py-3 rounded-2xl text-right">
-            <span className="block text-xs font-semibold text-slate-400 uppercase">Single-Build License Price</span>
+            <span className="block text-xs font-semibold text-slate-400 uppercase">{t('pdp.licensePrice')}</span>
             <span className="text-3xl font-black gold-gradient-text">${plan.price.toLocaleString()}</span>
           </div>
         </div>
@@ -122,7 +125,7 @@ export default function PlanDetailClient({ plan }: { plan: Plan }) {
                     : 'text-slate-400 hover:text-white bg-slate-950 border border-slate-800'
                 }`}
               >
-                3D Renderings & Exterior ({renders.length})
+                {t('pdp.rendersTab')} ({renders.length})
               </button>
               <button
                 onClick={() => { setActiveTab('floorplans'); setActiveImageIndex(0); }}
@@ -132,7 +135,7 @@ export default function PlanDetailClient({ plan }: { plan: Plan }) {
                     : 'text-slate-400 hover:text-white bg-slate-950 border border-slate-800'
                 }`}
               >
-                Watermarked Floor Plans ({floorPlans.length})
+                {t('pdp.floorplansTab')} ({floorPlans.length})
               </button>
             </div>
 
@@ -157,7 +160,7 @@ export default function PlanDetailClient({ plan }: { plan: Plan }) {
               {(currentImage?.isFloorPlan || activeTab === 'floorplans') && (
                 <div className="absolute top-3 right-3 bg-red-950/90 border border-red-500/40 text-red-300 px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold flex items-center gap-1.5 shadow-lg">
                   <ShieldCheck className="w-3.5 h-3.5 text-red-400" />
-                  DYNAMIC SHARP WATERMARK ACTIVE
+                  {t('pdp.watermarkActive')}
                 </div>
               )}
             </div>
@@ -184,10 +187,10 @@ export default function PlanDetailClient({ plan }: { plan: Plan }) {
           <div className="glass-card-accent p-6 flex items-center justify-between gap-4">
             <div className="space-y-1">
               <span className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
-                <FileText className="w-4 h-4" /> Download Sample Plan PDF
+                <FileText className="w-4 h-4" /> {t('pdp.samplePdfTitle')}
               </span>
-              <h4 className="text-sm font-bold text-white">Preview 1-Page Watermarked Construction Schematic</h4>
-              <p className="text-slate-400 text-xs">Examine spatial layout quality and schematic detail prior to checkout.</p>
+              <h4 className="text-sm font-bold text-white">{t('pdp.samplePdfHeading')}</h4>
+              <p className="text-slate-400 text-xs">{t('pdp.samplePdfDesc')}</p>
             </div>
 
             <a
@@ -196,38 +199,38 @@ export default function PlanDetailClient({ plan }: { plan: Plan }) {
               className="btn-secondary text-xs px-4 py-2.5 whitespace-nowrap flex items-center gap-2"
             >
               <Download className="w-4 h-4 text-amber-400" />
-              Download Sample PDF
+              {t('pdp.downloadSampleBtn')}
             </a>
           </div>
 
           {/* Technical Specifications Table */}
           <div className="glass-card p-6 space-y-4">
             <h3 className="text-base font-bold text-white border-b border-slate-800 pb-3">
-              Technical Specifications & Building Metrics
+              {t('pdp.specsTitle')}
             </h3>
             <div className="grid grid-cols-2 gap-4 text-xs font-mono">
               <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                <span className="text-slate-500 block">TOTAL HEATED AREA</span>
+                <span className="text-slate-500 block">{t('pdp.totalArea')}</span>
                 <strong className="text-white text-sm">{plan.sqm} SQ M</strong>
               </div>
               <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                <span className="text-slate-500 block">DIMENSIONS</span>
+                <span className="text-slate-500 block">{t('pdp.dimensions')}</span>
                 <strong className="text-white text-sm">{plan.widthM}m W x {plan.depthM}m D</strong>
               </div>
               <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                <span className="text-slate-500 block">BEDROOMS / BATHS</span>
+                <span className="text-slate-500 block">{t('pdp.bedsBaths')}</span>
                 <strong className="text-white text-sm">{plan.bedrooms} Beds / {plan.bathrooms} Baths</strong>
               </div>
               <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                <span className="text-slate-500 block">FOUNDATION TYPE</span>
+                <span className="text-slate-500 block">{t('pdp.foundationType')}</span>
                 <strong className="text-white text-sm">{plan.foundationType}</strong>
               </div>
               <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                <span className="text-slate-500 block">CEILING HEIGHTS</span>
+                <span className="text-slate-500 block">{t('pdp.ceilingHeights')}</span>
                 <strong className="text-slate-200 text-xs">{plan.ceilingHeight}</strong>
               </div>
               <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                <span className="text-slate-500 block">ROOF PITCH & STYLE</span>
+                <span className="text-slate-500 block">{t('pdp.roofPitch')}</span>
                 <strong className="text-slate-200 text-xs">{plan.roofPitch}</strong>
               </div>
             </div>
@@ -240,9 +243,9 @@ export default function PlanDetailClient({ plan }: { plan: Plan }) {
             <div className="border-b border-slate-800 pb-4">
               <h3 className="text-lg font-bold text-white flex items-center gap-2">
                 <ShoppingCart className="w-5 h-5 text-amber-500" />
-                Purchase Construction PDF Package
+                {t('pdp.purchaseTitle')}
               </h3>
-              <p className="text-slate-400 text-xs mt-1">Instant digital delivery upon Stripe Checkout completion.</p>
+              <p className="text-slate-400 text-xs mt-1">{t('pdp.purchaseDesc')}</p>
             </div>
 
             <form onSubmit={handleCheckout} className="space-y-6">
@@ -250,7 +253,7 @@ export default function PlanDetailClient({ plan }: { plan: Plan }) {
               <div className="space-y-4">
                 <div>
                   <label className="text-xs font-semibold text-slate-300 block mb-1">
-                    Your Full Name <span className="text-slate-500">(Optional)</span>
+                    {t('pdp.nameLabel')} <span className="text-slate-500">{t('pdp.optional')}</span>
                   </label>
                   <input
                     type="text"
@@ -263,7 +266,7 @@ export default function PlanDetailClient({ plan }: { plan: Plan }) {
 
                 <div>
                   <label className="text-xs font-semibold text-slate-300 block mb-1">
-                    Delivery Email Address <span className="text-amber-400">*</span>
+                    {t('pdp.emailLabel')} <span className="text-amber-400">*</span>
                   </label>
                   <input
                     type="email"
@@ -274,7 +277,7 @@ export default function PlanDetailClient({ plan }: { plan: Plan }) {
                     className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:border-amber-500 focus:outline-none"
                   />
                   <span className="text-[11px] text-slate-400 mt-1 block">
-                    Your 72-hour signed PDF download link will be delivered here.
+                    {t('pdp.emailHelp')}
                   </span>
                 </div>
               </div>
@@ -299,7 +302,7 @@ export default function PlanDetailClient({ plan }: { plan: Plan }) {
                     onClick={() => setDisclaimerChecked(!disclaimerChecked)}
                     className="text-xs text-slate-300 leading-relaxed cursor-pointer select-none"
                   >
-                    I acknowledge that I am purchasing a single-build license. I understand these plans are conceptual and must be reviewed and stamped by a local licensed structural engineer to meet regional building codes before construction.
+                    {t('pdp.disclaimerText')}
                   </label>
                 </div>
               </div>
@@ -310,21 +313,21 @@ export default function PlanDetailClient({ plan }: { plan: Plan }) {
                 </div>
               )}
 
-              {/* ADD TO CART / BUY NOW BUTTON (DISABLED UNTIL CHECKBOX CHECKED) */}
+              {/* ADD TO CART / BUY NOW BUTTON */}
               <button
                 type="submit"
                 disabled={!disclaimerChecked || isSubmitting}
                 className="btn-primary w-full py-4 text-base flex items-center justify-center gap-2"
               >
                 {isSubmitting ? (
-                  'Preparing Secure Stripe Checkout...'
+                  t('pdp.submitting')
                 ) : disclaimerChecked ? (
                   <>
                     <Lock className="w-4 h-4 text-slate-950" />
-                    Buy Now • ${plan.price.toLocaleString()}
+                    {t('pdp.buyNow')} • ${plan.price.toLocaleString()}
                   </>
                 ) : (
-                  'Check License Disclaimer to Buy'
+                  t('pdp.checkToBuy')
                 )}
               </button>
 
@@ -332,15 +335,15 @@ export default function PlanDetailClient({ plan }: { plan: Plan }) {
               <div className="space-y-2 border-t border-slate-800 pt-4 text-xs text-slate-400">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                  <span>Instant 72-Hour Tokenized Digital Vault Download</span>
+                  <span>{t('pdp.guarantee1')}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-amber-400" />
-                  <span>Full High-Resolution Vector Blueprints Package</span>
+                  <span>{t('pdp.guarantee2')}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-blue-400" />
-                  <span>Cryptographically Signed Stripe Webhook Listener</span>
+                  <span>{t('pdp.guarantee3')}</span>
                 </div>
               </div>
             </form>
