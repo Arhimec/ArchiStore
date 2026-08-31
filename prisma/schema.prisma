@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Plan {
+  id              String      @id @default(uuid())
+  title           String
+  slug            String      @unique
+  description     String
+  sqft            Int
+  bedrooms        Int
+  bathrooms       Float
+  stories         Int
+  garageSpaces    Int
+  widthFt         Float
+  depthFt         Float
+  style           String      // e.g. Modern, Craftsman, Farmhouse, Contemporary
+  foundationType  String      // e.g. Slab, Crawlspace, Basement
+  ceilingHeight   String
+  roofPitch       String
+  price           Float
+  isPublished     Boolean     @default(true)
+  featured        Boolean     @default(false)
+  pdfFileName     String      // Private PDF filename stored in private_storage/
+  images          PlanImage[]
+  orderItems      OrderItem[]
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
+
+model PlanImage {
+  id          String   @id @default(uuid())
+  planId      String
+  plan        Plan     @relation(fields: [planId], references: [id], onDelete: Cascade)
+  url         String
+  caption     String?
+  isFloorPlan Boolean  @default(false)
+  sortOrder   Int      @default(0)
+}
+
+model Order {
+  id              String          @id @default(uuid())
+  stripeSessionId String          @unique
+  customerEmail   String
+  customerName    String?
+  totalAmount     Float
+  status          String          // PENDING, COMPLETED, FAILED
+  items           OrderItem[]
+  downloadTokens  DownloadToken[]
+  createdAt       DateTime        @default(now())
+}
+
+model OrderItem {
+  id        String   @id @default(uuid())
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  planId    String
+  plan      Plan     @relation(fields: [planId], references: [id])
+  price     Float
+}
+
+model DownloadToken {
+  id            String      @id @default(uuid())
+  token         String      @unique
+  orderId       String
+  order         Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  planId        String
+  expiresAt     DateTime
+  downloadCount Int         @default(0)
+  maxDownloads  Int         @default(3)
+  auditLogs     AuditLog[]
+  createdAt     DateTime    @default(now())
+}
+
+model AuditLog {
+  id          String        @id @default(uuid())
+  tokenId     String
+  token       DownloadToken @relation(fields: [tokenId], references: [id], onDelete: Cascade)
+  ipAddress   String
+  userAgent   String?
+  timestamp   DateTime      @default(now())
+  action      String        // DOWNLOAD_SUCCESS, EXPIRED_ATTEMPT, MAX_DOWNLOADS_EXCEEDED
+}
