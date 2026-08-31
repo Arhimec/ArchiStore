@@ -82,7 +82,7 @@ export async function POST(req: NextRequest) {
             currency: 'usd',
             product_data: {
               name: `${plan.title} - Architectural Stock Plan (Single-Build License)`,
-              description: `${plan.sqft} SQ FT, ${plan.bedrooms} Bed, ${plan.bathrooms} Bath - Construction PDF Set`,
+              description: `${plan.sqm} SQ M, ${plan.bedrooms} Bed, ${plan.bathrooms} Bath - Construction PDF Set`,
               images: plan.images?.[0]?.url ? [plan.images[0].url] : [],
             },
             unit_amount: Math.round(plan.price * 100),

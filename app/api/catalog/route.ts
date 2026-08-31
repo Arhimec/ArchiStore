@@ -33,10 +33,10 @@ export async function GET(req: NextRequest) {
     ];
   }
 
-  if (filter.minSqft !== undefined || filter.maxSqft !== undefined) {
-    where.sqft = {};
-    if (filter.minSqft !== undefined) where.sqft.gte = filter.minSqft;
-    if (filter.maxSqft !== undefined) where.sqft.lte = filter.maxSqft;
+  if (filter.minSqm !== undefined || filter.maxSqm !== undefined) {
+    where.sqm = {};
+    if (filter.minSqm !== undefined) where.sqm.gte = filter.minSqm;
+    if (filter.maxSqm !== undefined) where.sqm.lte = filter.maxSqm;
   }
 
   if (filter.bedrooms) {
@@ -59,24 +59,24 @@ export async function GET(req: NextRequest) {
     where.foundationType = filter.foundationType;
   }
 
-  if (filter.minWidthFt || filter.maxWidthFt) {
-    where.widthFt = {};
-    if (filter.minWidthFt) where.widthFt.gte = filter.minWidthFt;
-    if (filter.maxWidthFt) where.widthFt.lte = filter.maxWidthFt;
+  if (filter.minWidthM || filter.maxWidthM) {
+    where.widthM = {};
+    if (filter.minWidthM) where.widthM.gte = filter.minWidthM;
+    if (filter.maxWidthM) where.widthM.lte = filter.maxWidthM;
   }
 
-  if (filter.minDepthFt || filter.maxDepthFt) {
-    where.depthFt = {};
-    if (filter.minDepthFt) where.depthFt.gte = filter.minDepthFt;
-    if (filter.maxDepthFt) where.depthFt.lte = filter.maxDepthFt;
+  if (filter.minDepthM || filter.maxDepthM) {
+    where.depthM = {};
+    if (filter.minDepthM) where.depthM.gte = filter.minDepthM;
+    if (filter.maxDepthM) where.depthM.lte = filter.maxDepthM;
   }
 
   // Sorting
   let orderBy: any = { createdAt: 'desc' };
   if (filter.sortBy === 'price-asc') orderBy = { price: 'asc' };
   if (filter.sortBy === 'price-desc') orderBy = { price: 'desc' };
-  if (filter.sortBy === 'sqft-asc') orderBy = { sqft: 'asc' };
-  if (filter.sortBy === 'sqft-desc') orderBy = { sqft: 'desc' };
+  if (filter.sortBy === 'sqm-asc') orderBy = { sqm: 'asc' };
+  if (filter.sortBy === 'sqm-desc') orderBy = { sqm: 'desc' };
 
   try {
     const plans = await prisma.plan.findMany({

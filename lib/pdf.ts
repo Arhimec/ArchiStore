@@ -3,7 +3,7 @@ import { PDFDocument, rgb, StandardFonts, degrees } from 'pdf-lib';
 export interface SamplePdfData {
   title: string;
   style: string;
-  sqft: number;
+  sqm: number;
   bedrooms: number;
   bathrooms: number;
   dimensions: string;
@@ -123,7 +123,7 @@ export async function generateSamplePdf(data: SamplePdfData): Promise<Uint8Array
     color: rgb(0.92, 0.94, 0.97),
   });
 
-  const specText = `SPECS: ${data.sqft} SQ FT | ${data.bedrooms} BEDS | ${data.bathrooms} BATHS | DIMENSIONS: ${data.dimensions} | STYLE: ${data.style}`;
+  const specText = `SPECS: ${data.sqm} SQ M | ${data.bedrooms} BEDS | ${data.bathrooms} BATHS | DIMENSIONS: ${data.dimensions} | STYLE: ${data.style}`;
   page.drawText(specText, {
     x: 60,
     y: 75,

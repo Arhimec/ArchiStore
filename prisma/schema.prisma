@@ -12,13 +12,13 @@ model Plan {
   title           String
   slug            String      @unique
   description     String
-  sqft            Int
+  sqm             Int
   bedrooms        Int
   bathrooms       Float
   stories         Int
   garageSpaces    Int
-  widthFt         Float
-  depthFt         Float
+  widthM          Float
+  depthM          Float
   style           String      // e.g. Modern, Craftsman, Farmhouse, Contemporary
   foundationType  String      // e.g. Slab, Crawlspace, Basement
   ceilingHeight   String

@@ -16,12 +16,12 @@ interface Plan {
   title: string;
   slug: string;
   description: string;
-  sqft: number;
+  sqm: number;
   bedrooms: number;
   bathrooms: number;
   stories: number;
-  widthFt: number;
-  depthFt: number;
+  widthM: number;
+  depthM: number;
   style: string;
   foundationType: string;
   price: number;
@@ -33,8 +33,8 @@ export default function CatalogClient() {
   const searchParams = useSearchParams();
 
   const [search, setSearch] = useState(searchParams.get('search') || '');
-  const [minSqft, setMinSqft] = useState(searchParams.get('minSqft') || '1000');
-  const [maxSqft, setMaxSqft] = useState(searchParams.get('maxSqft') || '5000');
+  const [minSqm, setMinSqm] = useState(searchParams.get('minSqm') || '50');
+  const [maxSqm, setMaxSqm] = useState(searchParams.get('maxSqm') || '500');
   const [bedrooms, setBedrooms] = useState(searchParams.get('bedrooms') || '0');
   const [bathrooms, setBathrooms] = useState(searchParams.get('bathrooms') || '0');
   const [style, setStyle] = useState(searchParams.get('style') || 'ALL');
@@ -49,8 +49,8 @@ export default function CatalogClient() {
     setLoading(true);
     const query = new URLSearchParams();
     if (search) query.set('search', search);
-    if (minSqft) query.set('minSqft', minSqft);
-    if (maxSqft) query.set('maxSqft', maxSqft);
+    if (minSqm) query.set('minSqm', minSqm);
+    if (maxSqm) query.set('maxSqm', maxSqm);
     if (bedrooms && bedrooms !== '0') query.set('bedrooms', bedrooms);
     if (bathrooms && bathrooms !== '0') query.set('bathrooms', bathrooms);
     if (style && style !== 'ALL') query.set('style', style);
@@ -72,12 +72,12 @@ export default function CatalogClient() {
 
   useEffect(() => {
     fetchPlans();
-  }, [search, minSqft, maxSqft, bedrooms, bathrooms, style, foundationType, sortBy]);
+  }, [search, minSqm, maxSqm, bedrooms, bathrooms, style, foundationType, sortBy]);
 
   const resetFilters = () => {
     setSearch('');
-    setMinSqft('1000');
-    setMaxSqft('5000');
+    setMinSqm('50');
+    setMaxSqm('500');
     setBedrooms('0');
     setBathrooms('0');
     setStyle('ALL');
@@ -116,8 +116,8 @@ export default function CatalogClient() {
               <option value="newest">Sort by: Newest First</option>
               <option value="price-asc">Price: Low to High</option>
               <option value="price-desc">Price: High to Low</option>
-              <option value="sqft-asc">Sq Ft: Small to Large</option>
-              <option value="sqft-desc">Sq Ft: Large to Small</option>
+              <option value="sqm-asc">Sq Meters: Small to Large</option>
+              <option value="sqm-desc">Sq Meters: Large to Small</option>
             </select>
           </div>
         </div>
@@ -141,28 +141,28 @@ export default function CatalogClient() {
               </button>
             </div>
 
-            {/* Square Footage Range Slider */}
+            {/* Square Meters Range Controls */}
             <div className="space-y-2">
               <div className="flex justify-between text-xs font-semibold text-slate-300">
-                <span>Square Footage</span>
-                <span className="font-mono text-amber-400">{minSqft} - {maxSqft} sqft</span>
+                <span>Square Meters</span>
+                <span className="font-mono text-amber-400">{minSqm} - {maxSqm} m²</span>
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="text-[10px] text-slate-400">Min Sq Ft</label>
+                  <label className="text-[10px] text-slate-400">Min m²</label>
                   <input
                     type="number"
-                    value={minSqft}
-                    onChange={(e) => setMinSqft(e.target.value)}
+                    value={minSqm}
+                    onChange={(e) => setMinSqm(e.target.value)}
                     className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] text-slate-400">Max Sq Ft</label>
+                  <label className="text-[10px] text-slate-400">Max m²</label>
                   <input
                     type="number"
-                    value={maxSqft}
-                    onChange={(e) => setMaxSqft(e.target.value)}
+                    value={maxSqm}
+                    onChange={(e) => setMaxSqm(e.target.value)}
                     className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white"
                   />
                 </div>
@@ -234,7 +234,7 @@ export default function CatalogClient() {
               <Compass className="w-12 h-12 text-slate-600 mx-auto" />
               <h3 className="text-lg font-bold text-white">No Architectural Plans Found</h3>
               <p className="text-slate-400 text-xs max-w-sm mx-auto">
-                No stock plans matched your filter criteria. Try adjusting the square footage range or selecting 'All Styles'.
+                No stock plans matched your filter criteria. Try adjusting the square meters range or selecting 'All Styles'.
               </p>
               <button onClick={resetFilters} className="btn-secondary text-xs">
                 Reset All Filters
@@ -275,11 +275,11 @@ export default function CatalogClient() {
                     </div>
 
                     <div className="grid grid-cols-2 gap-2 text-xs text-slate-300 bg-slate-950/50 p-3 rounded-xl border border-slate-800/60 font-mono">
-                      <div><span className="text-slate-500">SQ FT:</span> <strong className="text-white">{plan.sqft}</strong></div>
+                      <div><span className="text-slate-500">SQ M:</span> <strong className="text-white">{plan.sqm} m²</strong></div>
                       <div><span className="text-slate-500">BEDS:</span> <strong className="text-white">{plan.bedrooms}</strong></div>
                       <div><span className="text-slate-500">BATHS:</span> <strong className="text-white">{plan.bathrooms}</strong></div>
                       <div><span className="text-slate-500">FOUNDATION:</span> <strong className="text-white">{plan.foundationType}</strong></div>
-                      <div><span className="text-slate-500">DIMENSIONS:</span> <strong className="text-white">{plan.widthFt}' x {plan.depthFt}'</strong></div>
+                      <div><span className="text-slate-500">DIMENSIONS:</span> <strong className="text-white">{plan.widthM}m x {plan.depthM}m</strong></div>
                       <div><span className="text-slate-500">STORIES:</span> <strong className="text-white">{plan.stories} Story</strong></div>
                     </div>
 

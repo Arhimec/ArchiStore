@@ -19,10 +19,10 @@ export async function GET(
   const samplePdfBytes = await generateSamplePdf({
     title: plan.title,
     style: plan.style,
-    sqft: plan.sqft,
+    sqm: plan.sqm,
     bedrooms: plan.bedrooms,
     bathrooms: plan.bathrooms,
-    dimensions: `${plan.widthFt}' W x ${plan.depthFt}' D`,
+    dimensions: `${plan.widthM}m W x ${plan.depthM}m D`,
   });
 
   return new NextResponse(new Uint8Array(samplePdfBytes), {

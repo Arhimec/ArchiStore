@@ -23,7 +23,7 @@ test.describe('ArchiStore Architectural Stock Plan E2E Journey', () => {
 
     // 4. Verify Technical Specs Table is present
     await expect(page.locator('text=TECHNICAL SPECIFICATIONS')).toBeVisible();
-    await expect(page.locator('text=2450 SQ FT')).toBeVisible();
+    await expect(page.locator('text=228 SQ M')).toBeVisible();
 
     // 5. Verify Sample PDF Download button is present
     const sampleDownloadBtn = page.locator('a:has-text("Download Sample PDF")');

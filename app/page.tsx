@@ -110,7 +110,7 @@ export default async function HomePage() {
                 </div>
 
                 <div className="grid grid-cols-2 gap-2 text-xs text-slate-300 bg-slate-950/50 p-3 rounded-xl border border-slate-800/60 font-mono">
-                  <div><span className="text-slate-500">SQ FT:</span> <strong className="text-white">{plan.sqft}</strong></div>
+                  <div><span className="text-slate-500">SQ M:</span> <strong className="text-white">{plan.sqm} m²</strong></div>
                   <div><span className="text-slate-500">BEDS:</span> <strong className="text-white">{plan.bedrooms}</strong></div>
                   <div><span className="text-slate-500">BATHS:</span> <strong className="text-white">{plan.bathrooms}</strong></div>
                   <div><span className="text-slate-500">FOUNDATION:</span> <strong className="text-white">{plan.foundationType}</strong></div>

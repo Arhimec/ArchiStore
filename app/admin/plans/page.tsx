@@ -37,7 +37,7 @@ export default async function AdminPlansPage() {
             <thead className="bg-slate-950/80 text-slate-400 font-mono border-b border-slate-800 uppercase text-[10px]">
               <tr>
                 <th className="p-4">Title & Slug</th>
-                <th className="p-4">Specs (Sqft/Bed/Bath)</th>
+                <th className="p-4">Specs (Sqm/Bed/Bath)</th>
                 <th className="p-4">Style & Foundation</th>
                 <th className="p-4">Price</th>
                 <th className="p-4">Private PDF File</th>
@@ -52,7 +52,7 @@ export default async function AdminPlansPage() {
                     <div className="text-[10px] text-amber-400 font-mono">{plan.slug}</div>
                   </td>
                   <td className="p-4 font-mono">
-                    {plan.sqft} sqft | {plan.bedrooms}b/{plan.bathrooms}ba
+                    {plan.sqm} m² | {plan.bedrooms}b/{plan.bathrooms}ba
                   </td>
                   <td className="p-4">
                     <span className="bg-slate-900 border border-slate-800 px-2 py-1 rounded text-[11px] font-mono text-slate-200">

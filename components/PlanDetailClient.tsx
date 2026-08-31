@@ -17,13 +17,13 @@ interface Plan {
   title: string;
   slug: string;
   description: string;
-  sqft: number;
+  sqm: number;
   bedrooms: number;
   bathrooms: number;
   stories: number;
   garageSpaces: number;
-  widthFt: number;
-  depthFt: number;
+  widthM: number;
+  depthM: number;
   style: string;
   foundationType: string;
   ceilingHeight: string;
@@ -208,11 +208,11 @@ export default function PlanDetailClient({ plan }: { plan: Plan }) {
             <div className="grid grid-cols-2 gap-4 text-xs font-mono">
               <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
                 <span className="text-slate-500 block">TOTAL HEATED AREA</span>
-                <strong className="text-white text-sm">{plan.sqft} SQ FT</strong>
+                <strong className="text-white text-sm">{plan.sqm} SQ M</strong>
               </div>
               <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
                 <span className="text-slate-500 block">DIMENSIONS</span>
-                <strong className="text-white text-sm">{plan.widthFt}' W x {plan.depthFt}' D</strong>
+                <strong className="text-white text-sm">{plan.widthM}m W x {plan.depthM}m D</strong>
               </div>
               <div className="bg-slate-950 p-3 rounded-xl border border-slate-800">
                 <span className="text-slate-500 block">BEDROOMS / BATHS</span>

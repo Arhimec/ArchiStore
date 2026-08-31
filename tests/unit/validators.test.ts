@@ -28,8 +28,8 @@ describe('Zod Schema Validation & Legal Checkbox Enforcement', () => {
   it('parses catalog filter query parameters safely', () => {
     const rawFilter = {
       search: 'farmhouse',
-      minSqft: '1500',
-      maxSqft: '3000',
+      minSqm: '150',
+      maxSqm: '300',
       bedrooms: '3',
       style: 'Farmhouse',
       sortBy: 'price-asc',
@@ -38,7 +38,7 @@ describe('Zod Schema Validation & Legal Checkbox Enforcement', () => {
     const result = CatalogFilterSchema.safeParse(rawFilter);
     expect(result.success).toBe(true);
     if (result.success) {
-      expect(result.data.minSqft).toBe(1500);
+      expect(result.data.minSqm).toBe(150);
       expect(result.data.bedrooms).toBe(3);
     }
   });
@@ -48,17 +48,17 @@ describe('Zod Schema Validation & Legal Checkbox Enforcement', () => {
       title: 'Modern Minimalist Villa',
       slug: 'modern-minimalist-villa',
       description: 'High-end luxury single story residence.',
-      sqft: 2800,
+      sqm: 260,
       bedrooms: 4,
       bathrooms: 3.5,
       stories: 1,
       garageSpaces: 2,
-      widthFt: 50,
-      depthFt: 60,
+      widthM: 15,
+      depthM: 18,
       style: 'Modern',
       foundationType: 'Slab',
-      ceilingHeight: '10ft Monolithic',
-      roofPitch: '2:12 Flat',
+      ceilingHeight: '3.0m Monolithic',
+      roofPitch: '2° Flat',
       price: 1450,
       isPublished: true,
       featured: true,
