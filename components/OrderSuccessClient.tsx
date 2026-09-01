@@ -42,9 +42,7 @@ export default function OrderSuccessClient() {
         });
 
         // Query admin orders endpoint or direct token status
-        const res = await fetch(`/api/admin/orders`, {
-          headers: { 'x-admin-passcode': 'admin1234' },
-        });
+        const res = await fetch(`/api/admin/orders`);
 
         if (res.ok) {
           const data = await res.json();
@@ -73,44 +71,44 @@ export default function OrderSuccessClient() {
     <div className="max-w-3xl mx-auto py-8 space-y-8">
       {/* Top Banner */}
       <div className="glass-card-accent p-8 text-center space-y-4">
-        <div className="w-16 h-16 bg-emerald-500/20 border border-emerald-500/40 rounded-full flex items-center justify-center mx-auto text-emerald-400">
+        <div className="w-16 h-16 bg-zinc-900 border border-zinc-700 rounded-full flex items-center justify-center mx-auto text-white">
           <CheckCircle2 className="w-10 h-10 stroke-[2.5]" />
         </div>
 
         <h1 className="text-3xl font-extrabold text-white">{t('success.title')}</h1>
-        <p className="text-slate-300 text-sm max-w-lg mx-auto">
+        <p className="text-zinc-300 text-sm max-w-lg mx-auto">
           {t('success.desc')}
         </p>
 
         {sessionId && (
-          <div className="inline-block bg-slate-950 px-4 py-1.5 rounded-lg border border-slate-800 text-xs font-mono text-slate-400">
-            {t('success.sessionId')}: <span className="text-amber-400 font-bold">{sessionId}</span>
+          <div className="inline-block bg-zinc-950 px-4 py-1.5 rounded-lg border border-zinc-800 text-xs font-mono text-zinc-400">
+            {t('success.sessionId')}: <span className="text-white font-bold">{sessionId}</span>
           </div>
         )}
       </div>
 
       {/* Immediate Download Token Box */}
       <div className="glass-card p-6 lg:p-8 space-y-6">
-        <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
           <div className="flex items-center gap-2 font-bold text-white text-base">
-            <FileCheck2 className="w-5 h-5 text-amber-500" />
+            <FileCheck2 className="w-5 h-5 text-white" />
             {t('success.tokenTitle')}
           </div>
-          <span className="text-xs bg-amber-500/10 border border-amber-500/30 text-amber-400 font-mono px-3 py-1 rounded-full">
+          <span className="text-xs bg-zinc-900 border border-zinc-800 text-zinc-200 font-mono px-3 py-1 rounded-full">
             {t('success.tokenBadge')}
           </span>
         </div>
 
         {loading ? (
-          <div className="p-8 text-center text-slate-400 font-mono">
+          <div className="p-8 text-center text-zinc-400 font-mono">
             Generating cryptographically signed URL...
           </div>
         ) : downloadUrl ? (
           <div className="space-y-4">
-            <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="bg-zinc-950 p-4 rounded-xl border border-zinc-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
-                <span className="text-xs font-mono text-slate-500 block">{t('success.signedUrl')}</span>
-                <span className="text-xs font-mono text-slate-300 break-all">{downloadUrl}</span>
+                <span className="text-xs font-mono text-zinc-500 block">{t('success.signedUrl')}</span>
+                <span className="text-xs font-mono text-zinc-300 break-all">{downloadUrl}</span>
               </div>
 
               <a
@@ -118,24 +116,24 @@ export default function OrderSuccessClient() {
                 download
                 className="btn-primary py-3 px-6 text-sm flex items-center justify-center gap-2 whitespace-nowrap"
               >
-                <Download className="w-4 h-4 text-slate-950" />
+                <Download className="w-4 h-4 text-black" />
                 {t('success.downloadBtn')}
               </a>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-400">
-              <div className="flex items-center gap-2 bg-slate-950/60 p-3 rounded-lg border border-slate-800">
-                <Clock className="w-4 h-4 text-amber-400" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-zinc-400">
+              <div className="flex items-center gap-2 bg-zinc-950 p-3 rounded-lg border border-zinc-800">
+                <Clock className="w-4 h-4 text-white" />
                 <span>{t('success.expirationNote')}</span>
               </div>
-              <div className="flex items-center gap-2 bg-slate-950/60 p-3 rounded-lg border border-slate-800">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" />
+              <div className="flex items-center gap-2 bg-zinc-950 p-3 rounded-lg border border-zinc-800">
+                <ShieldCheck className="w-4 h-4 text-white" />
                 <span>{t('success.auditNote')}</span>
               </div>
             </div>
           </div>
         ) : (
-          <div className="p-4 bg-amber-950/40 border border-amber-500/30 rounded-xl text-xs text-amber-300">
+          <div className="p-4 bg-zinc-950 border border-zinc-800 rounded-xl text-xs text-zinc-300">
             Token is initializing. You can access your plan via the Admin Dashboard or contact support with your Session ID.
           </div>
         )}

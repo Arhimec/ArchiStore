@@ -49,22 +49,22 @@ export default function AdminLoginPage() {
 
   return (
     <div className="max-w-md mx-auto py-16 space-y-8">
-      <div className="glass-card-accent p-8 space-y-6 border-amber-500/40">
+      <div className="glass-card-accent p-8 space-y-6 border-zinc-700">
         <div className="text-center space-y-3">
-          <div className="w-14 h-14 bg-amber-500/10 border border-amber-500/30 rounded-2xl flex items-center justify-center mx-auto text-amber-400 shadow-md">
+          <div className="w-14 h-14 bg-zinc-900 border border-zinc-700 rounded-2xl flex items-center justify-center mx-auto text-white shadow-md">
             <Lock className="w-7 h-7 stroke-[2.5]" />
           </div>
           <h1 className="text-2xl font-extrabold text-white tracking-tight">{t('admin.loginTitle')}</h1>
-          <p className="text-slate-400 text-xs leading-relaxed max-w-xs mx-auto">
+          <p className="text-zinc-400 text-xs leading-relaxed max-w-xs mx-auto">
             {t('admin.loginSubtitle')}
           </p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-5">
           <div>
-            <label className="text-xs font-semibold text-slate-300 block mb-1 flex items-center gap-1.5">
-              <KeyRound className="w-3.5 h-3.5 text-amber-500" />
-              {t('admin.passwordLabel')} <span className="text-amber-400">*</span>
+            <label className="text-xs font-semibold text-zinc-300 block mb-1 flex items-center gap-1.5">
+              <KeyRound className="w-3.5 h-3.5 text-white" />
+              {t('admin.passwordLabel')} <span className="text-white">*</span>
             </label>
             <input
               type="password"
@@ -73,7 +73,7 @@ export default function AdminLoginPage() {
               placeholder={t('admin.passwordPlaceholder')}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:border-amber-500 focus:outline-none transition-colors"
+              className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:border-zinc-500 focus:outline-none transition-colors"
             />
           </div>
 
@@ -91,19 +91,19 @@ export default function AdminLoginPage() {
           >
             {isSubmitting ? (
               <>
-                <RefreshCw className="w-4 h-4 animate-spin text-slate-950" />
+                <RefreshCw className="w-4 h-4 animate-spin text-black" />
                 {t('admin.authenticating')}
               </>
             ) : (
               <>
                 {t('admin.loginBtn')}
-                <ArrowRight className="w-4 h-4 text-slate-950" />
+                <ArrowRight className="w-4 h-4 text-black" />
               </>
             )}
           </button>
         </form>
 
-        <div className="border-t border-slate-800/80 pt-4 text-center text-[11px] text-slate-500 font-mono">
+        <div className="border-t border-zinc-800 pt-4 text-center text-[11px] text-zinc-500 font-mono">
           <span>Autentificare Securizată prin Bază de Date Criptată PBKDF2</span>
         </div>
       </div>

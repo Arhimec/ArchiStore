@@ -92,28 +92,28 @@ export default function CatalogClient() {
       {/* Search Header Bar */}
       <div className="glass-card p-6 flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="relative w-full md:w-96">
-          <Search className="w-5 h-5 absolute left-3.5 top-3.5 text-slate-400" />
+          <Search className="w-5 h-5 absolute left-3.5 top-3.5 text-zinc-400" />
           <input
             type="text"
             placeholder={t('catalog.searchPlaceholder')}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-11 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-500 transition-colors"
+            className="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-11 pr-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-zinc-500 transition-colors"
           />
         </div>
 
         <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
-          <div className="flex items-center gap-2 text-xs text-slate-400 font-mono">
-            <SlidersHorizontal className="w-4 h-4 text-amber-500" />
+          <div className="flex items-center gap-2 text-xs text-zinc-400 font-mono">
+            <SlidersHorizontal className="w-4 h-4 text-white" />
             {t('catalog.showing')} <strong className="text-white">{plans.length}</strong> {t('catalog.stockPlans')}
           </div>
 
           <div className="flex items-center gap-2">
-            <ArrowUpDown className="w-4 h-4 text-slate-400" />
+            <ArrowUpDown className="w-4 h-4 text-zinc-400" />
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs font-semibold text-slate-200 focus:outline-none focus:border-amber-500"
+              className="bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs font-semibold text-zinc-200 focus:outline-none focus:border-zinc-500"
             >
               <option value="newest">{t('catalog.sortNewest')}</option>
               <option value="price-asc">{t('catalog.sortPriceAsc')}</option>
@@ -130,14 +130,14 @@ export default function CatalogClient() {
         {/* Sidebar Filters */}
         <div className="lg:col-span-1 space-y-6">
           <div className="glass-card p-6 space-y-6">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div className="flex items-center justify-between border-b border-zinc-800 pb-3">
               <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                <Filter className="w-4 h-4 text-amber-500" />
+                <Filter className="w-4 h-4 text-white" />
                 {t('catalog.filters')}
               </h3>
               <button
                 onClick={resetFilters}
-                className="text-[11px] text-amber-400 hover:underline flex items-center gap-1 font-mono"
+                className="text-[11px] text-zinc-300 hover:text-white flex items-center gap-1 font-mono hover:underline"
               >
                 <RefreshCw className="w-3 h-3" /> {t('catalog.reset')}
               </button>
@@ -145,27 +145,27 @@ export default function CatalogClient() {
 
             {/* Square Meters Range Controls */}
             <div className="space-y-2">
-              <div className="flex justify-between text-xs font-semibold text-slate-300">
+              <div className="flex justify-between text-xs font-semibold text-zinc-300">
                 <span>{t('catalog.squareMeters')}</span>
-                <span className="font-mono text-amber-400">{minSqm} - {maxSqm} m²</span>
+                <span className="font-mono text-white">{minSqm} - {maxSqm} m²</span>
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="text-[10px] text-slate-400">{t('catalog.minSqm')}</label>
+                  <label className="text-[10px] text-zinc-400">{t('catalog.minSqm')}</label>
                   <input
                     type="number"
                     value={minSqm}
                     onChange={(e) => setMinSqm(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white"
+                    className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-2.5 py-1.5 text-xs text-white"
                   />
                 </div>
                 <div>
-                  <label className="text-[10px] text-slate-400">{t('catalog.maxSqm')}</label>
+                  <label className="text-[10px] text-zinc-400">{t('catalog.maxSqm')}</label>
                   <input
                     type="number"
                     value={maxSqm}
                     onChange={(e) => setMaxSqm(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-white"
+                    className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-2.5 py-1.5 text-xs text-white"
                   />
                 </div>
               </div>
@@ -173,7 +173,7 @@ export default function CatalogClient() {
 
             {/* Bedrooms Count */}
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-300 block">{t('catalog.bedrooms')}</label>
+              <label className="text-xs font-semibold text-zinc-300 block">{t('catalog.bedrooms')}</label>
               <div className="grid grid-cols-5 gap-1 text-xs">
                 {['0', '1', '2', '3', '4+'].map((val, idx) => (
                   <button
@@ -181,8 +181,8 @@ export default function CatalogClient() {
                     onClick={() => setBedrooms(idx === 4 ? '4' : val)}
                     className={`py-1.5 rounded-lg border font-mono font-bold transition-all ${
                       (bedrooms === val || (idx === 4 && bedrooms === '4'))
-                        ? 'bg-amber-500 text-slate-950 border-amber-500'
-                        : 'bg-slate-950 text-slate-300 border-slate-800 hover:border-slate-700'
+                        ? 'bg-white text-black border-white'
+                        : 'bg-zinc-950 text-zinc-300 border-zinc-800 hover:border-zinc-700'
                     }`}
                   >
                     {val === '0' ? t('catalog.any') : val}
@@ -193,11 +193,11 @@ export default function CatalogClient() {
 
             {/* Architectural Style */}
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-300 block">{t('catalog.style')}</label>
+              <label className="text-xs font-semibold text-zinc-300 block">{t('catalog.style')}</label>
               <select
                 value={style}
                 onChange={(e) => setStyle(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:border-amber-500"
+                className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white focus:border-zinc-500"
               >
                 <option value="ALL">{t('catalog.allStyles')}</option>
                 <option value="Farmhouse">{t('nav.farmhouse')}</option>
@@ -209,11 +209,11 @@ export default function CatalogClient() {
 
             {/* Foundation Type */}
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-300 block">{t('catalog.foundation')}</label>
+              <label className="text-xs font-semibold text-zinc-300 block">{t('catalog.foundation')}</label>
               <select
                 value={foundationType}
                 onChange={(e) => setFoundationType(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:border-amber-500"
+                className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-white focus:border-zinc-500"
               >
                 <option value="ALL">{t('catalog.allFoundations')}</option>
                 <option value="Slab">{t('catalog.slab')}</option>
@@ -227,15 +227,15 @@ export default function CatalogClient() {
         {/* Product Cards Listing */}
         <div className="lg:col-span-3">
           {loading ? (
-            <div className="glass-card p-12 text-center text-slate-400 font-mono space-y-3">
-              <RefreshCw className="w-6 h-6 animate-spin mx-auto text-amber-500" />
+            <div className="glass-card p-12 text-center text-zinc-400 font-mono space-y-3">
+              <RefreshCw className="w-6 h-6 animate-spin mx-auto text-white" />
               <p>Searching database index...</p>
             </div>
           ) : plans.length === 0 ? (
             <div className="glass-card p-12 text-center space-y-4">
-              <Compass className="w-12 h-12 text-slate-600 mx-auto" />
+              <Compass className="w-12 h-12 text-zinc-600 mx-auto" />
               <h3 className="text-lg font-bold text-white">{t('catalog.noPlansFound')}</h3>
-              <p className="text-slate-400 text-xs max-w-sm mx-auto">
+              <p className="text-zinc-400 text-xs max-w-sm mx-auto">
                 {t('catalog.noPlansDesc')}
               </p>
               <button onClick={resetFilters} className="btn-secondary text-xs">
@@ -246,7 +246,7 @@ export default function CatalogClient() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {plans.map((plan) => (
                 <div key={plan.id} className="glass-card overflow-hidden group flex flex-col justify-between">
-                  <div className="relative aspect-[16/10] overflow-hidden bg-slate-900">
+                  <div className="relative aspect-[16/10] overflow-hidden bg-zinc-950">
                     {plan.images?.[0] ? (
                       <img
                         src={plan.images[0].url}
@@ -254,34 +254,34 @@ export default function CatalogClient() {
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-slate-600">
+                      <div className="w-full h-full flex items-center justify-center text-zinc-600">
                         <Compass className="w-12 h-12" />
                       </div>
                     )}
-                    <div className="absolute top-3 left-3 bg-slate-950/80 backdrop-blur-md px-3 py-1 rounded-lg border border-slate-800 text-xs font-semibold text-amber-400">
+                    <div className="absolute top-3 left-3 bg-black/90 backdrop-blur-md px-3 py-1 rounded-lg border border-zinc-800 text-xs font-semibold text-zinc-200">
                       {plan.style}
                     </div>
-                    <div className="absolute bottom-3 right-3 bg-amber-500 text-slate-950 font-black px-3 py-1 rounded-lg text-sm shadow-md">
+                    <div className="absolute bottom-3 right-3 bg-white text-black font-black px-3 py-1 rounded-lg text-sm shadow-md">
                       ${plan.price.toLocaleString()}
                     </div>
                   </div>
 
                   <div className="p-6 space-y-4 flex-1 flex flex-col justify-between">
                     <div>
-                      <h3 className="text-lg font-bold text-white group-hover:text-amber-400 transition-colors">
+                      <h3 className="text-lg font-bold text-white group-hover:text-zinc-300 transition-colors">
                         {plan.title}
                       </h3>
-                      <p className="text-slate-400 text-xs line-clamp-2 mt-1">
+                      <p className="text-zinc-400 text-xs line-clamp-2 mt-1">
                         {plan.description}
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2 text-xs text-slate-300 bg-slate-950/50 p-3 rounded-xl border border-slate-800/60 font-mono">
-                      <div><span className="text-slate-500">{t('catalog.sqmBadge')}:</span> <strong className="text-white">{plan.sqm} m²</strong></div>
-                      <div><span className="text-slate-500">{t('catalog.bedsBadge')}:</span> <strong className="text-white">{plan.bedrooms}</strong></div>
-                      <div><span className="text-slate-500">{t('catalog.bathsBadge')}:</span> <strong className="text-white">{plan.bathrooms}</strong></div>
-                      <div><span className="text-slate-500">{t('catalog.foundationBadge')}:</span> <strong className="text-white">{plan.foundationType}</strong></div>
-                      <div><span className="text-slate-500">{t('catalog.dimensionsBadge')}:</span> <strong className="text-white">{plan.widthM}m x {plan.depthM}m</strong></div>
+                    <div className="grid grid-cols-2 gap-2 text-xs text-zinc-300 bg-zinc-950 p-3 rounded-xl border border-zinc-800/80 font-mono">
+                      <div><span className="text-zinc-500">{t('catalog.sqmBadge')}:</span> <strong className="text-white">{plan.sqm} m²</strong></div>
+                      <div><span className="text-zinc-500">{t('catalog.bedsBadge')}:</span> <strong className="text-white">{plan.bedrooms}</strong></div>
+                      <div><span className="text-zinc-500">{t('catalog.bathsBadge')}:</span> <strong className="text-white">{plan.bathrooms}</strong></div>
+                      <div><span className="text-zinc-500">{t('catalog.foundationBadge')}:</span> <strong className="text-white">{plan.foundationType}</strong></div>
+                      <div><span className="text-zinc-500">{t('catalog.dimensionsBadge')}:</span> <strong className="text-white">{plan.widthM}m x {plan.depthM}m</strong></div>
                       <div><span className="text-slate-500">{t('catalog.storiesBadge')}:</span> <strong className="text-white">{plan.stories} {t('catalog.storyUnit')}</strong></div>
                     </div>
 

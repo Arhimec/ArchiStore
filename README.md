@@ -32,7 +32,7 @@ Panoul de administrare este redactat **exclusiv în limba română** și este st
 
 Pentru a adăuga un proiect nou în catalogul ArchiStore:
 
-1. Autentificați-vă în panoul admin la `/admin/login` folosind parola `DoamneAjuta2026`.
+1. Autentificați-vă în panoul admin la `/admin/login` folosind parola `********`.
 2. Navigați la secțiunea **Administrează Proiecte** (`/admin/plans`).
 3. Apăsați butonul **`+ Adaugă Proiect Nou`** situat în partea din dreapta sus.
 4. În fereastra modală deschisă, completați câmpurile solicitate:
