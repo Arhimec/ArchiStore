@@ -7,6 +7,11 @@
   --font-display: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
+html, body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
 body {
   @apply bg-slate-50 text-slate-900 antialiased font-sans selection:bg-slate-900 selection:text-white dark:bg-zinc-900 dark:text-zinc-100 dark:selection:bg-white dark:selection:text-zinc-950;
   background-image: 
