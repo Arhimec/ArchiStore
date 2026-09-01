@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { LayoutDashboard, FileSpreadsheet, ShoppingBag, ShieldAlert, ArrowRight, DollarSign, DownloadCloud, LogOut } from 'lucide-react';
-import { useLanguage } from '@/lib/i18n/context';
+import { translations } from '@/lib/i18n/translations';
 
 interface AdminMetrics {
   plansCount: number;
@@ -15,7 +15,14 @@ interface AdminMetrics {
 
 export default function AdminDashboardClient({ metrics }: { metrics: AdminMetrics }) {
   const router = useRouter();
-  const { t } = useLanguage();
+  const t = (key: string) => {
+    const parts = key.split('.');
+    let obj: any = translations.ro;
+    for (const part of parts) {
+      obj = obj?.[part];
+    }
+    return obj || key;
+  };
 
   const handleLogout = async () => {
     try {
@@ -66,7 +73,7 @@ export default function AdminDashboardClient({ metrics }: { metrics: AdminMetric
             <DollarSign className="w-6 h-6 text-emerald-400" />
             <span className="text-3xl font-black text-white font-mono">${metrics.totalRevenue.toLocaleString()}</span>
           </div>
-          <span className="text-[11px] text-slate-500 block">From {metrics.completedOrdersCount} {t('admin.totalRevenueDesc')}</span>
+          <span className="text-[11px] text-slate-500 block">Din {metrics.completedOrdersCount} {t('admin.totalRevenueDesc')}</span>
         </div>
 
         <div className="glass-card p-6 space-y-2">

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { RefreshCw, CheckCircle2, Copy, ShieldAlert, FileCheck2, Clock } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
 
 export default function AdminOrdersClient({ initialOrders }: { initialOrders: any[] }) {
   const [orders, setOrders] = useState(initialOrders);
@@ -17,28 +17,25 @@ export default function AdminOrdersClient({ initialOrders }: { initialOrders: an
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-admin-passcode': 'admin1234',
         },
         body: JSON.stringify({ orderId, planId }),
       });
 
       const json = await res.json();
       if (!res.ok || !json.success) {
-        throw new Error(json.message || json.error || 'Regeneration failed');
+        throw new Error(json.message || json.error || 'Regenerare eșuată');
       }
 
-      setMessage(`Fresh 72-hour token issued for Order #${orderId.substring(0, 8)}`);
+      setMessage(`Token nou valabil 72 ore emis pentru Comanda #${orderId.substring(0, 8)}`);
 
       // Refetch orders list
-      const fetchRes = await fetch('/api/admin/orders', {
-        headers: { 'x-admin-passcode': 'admin1234' },
-      });
+      const fetchRes = await fetch('/api/admin/orders');
       if (fetchRes.ok) {
         const fetchJson = await fetchRes.json();
         setOrders(fetchJson.data);
       }
     } catch (err: any) {
-      setMessage(`Error: ${err.message}`);
+      setMessage(`Eroare: ${err.message}`);
     } finally {
       setRegeneratingId(null);
     }
@@ -57,12 +54,12 @@ export default function AdminOrdersClient({ initialOrders }: { initialOrders: an
           <table className="w-full text-left text-xs">
             <thead className="bg-slate-950/80 text-slate-400 font-mono border-b border-slate-800 uppercase text-[10px]">
               <tr>
-                <th className="p-4">Order ID & Date</th>
-                <th className="p-4">Customer</th>
-                <th className="p-4">Purchased Plan</th>
-                <th className="p-4">Total Amount</th>
-                <th className="p-4">Download Token Status</th>
-                <th className="p-4">Actions</th>
+                <th className="p-4">ID Comandă & Dată</th>
+                <th className="p-4">Client</th>
+                <th className="p-4">Proiect Achiziționat</th>
+                <th className="p-4">Sumă Totală</th>
+                <th className="p-4">Status Token Descărcare</th>
+                <th className="p-4">Acțiuni</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/60 text-slate-300">
@@ -77,7 +74,7 @@ export default function AdminOrdersClient({ initialOrders }: { initialOrders: an
                     <td className="p-4 font-mono">
                       <div className="font-bold text-white">#{order.id.substring(0, 8)}</div>
                       <div className="text-[10px] text-slate-500">
-                        {new Date(order.createdAt).toLocaleDateString()}
+                        {new Date(order.createdAt).toLocaleDateString('ro-RO')}
                       </div>
                     </td>
 
@@ -87,7 +84,7 @@ export default function AdminOrdersClient({ initialOrders }: { initialOrders: an
                     </td>
 
                     <td className="p-4 font-mono text-amber-400 font-semibold">
-                      {item?.plan?.title || 'Architectural Plan Set'}
+                      {item?.plan?.title || 'Proiect Arhitectural'}
                     </td>
 
                     <td className="p-4 font-mono font-bold text-emerald-400">
@@ -99,19 +96,19 @@ export default function AdminOrdersClient({ initialOrders }: { initialOrders: an
                         <div className="space-y-1">
                           <div className="flex items-center gap-2">
                             <span className="text-[11px] text-slate-200">
-                              Downloads: <strong className="text-white">{tokenObj.downloadCount} / {tokenObj.maxDownloads}</strong>
+                              Descărcări: <strong className="text-white">{tokenObj.downloadCount} / {tokenObj.maxDownloads}</strong>
                             </span>
                           </div>
                           {isExpired ? (
-                            <span className="text-[10px] text-red-400 font-bold bg-red-950/60 px-2 py-0.5 rounded border border-red-500/30">EXPIRED</span>
+                            <span className="text-[10px] text-red-400 font-bold bg-red-950/60 px-2 py-0.5 rounded border border-red-500/30">EXPIRAT</span>
                           ) : isMaxedOut ? (
-                            <span className="text-[10px] text-amber-400 font-bold bg-amber-950/60 px-2 py-0.5 rounded border border-amber-500/30">MAX DOWNLOADS REACHED</span>
+                            <span className="text-[10px] text-amber-400 font-bold bg-amber-950/60 px-2 py-0.5 rounded border border-amber-500/30">NUMĂR MAXIM ATINS</span>
                           ) : (
-                            <span className="text-[10px] text-emerald-400 font-bold bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/30">ACTIVE</span>
+                            <span className="text-[10px] text-emerald-400 font-bold bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/30">ACTIV</span>
                           )}
                         </div>
                       ) : (
-                        <span className="text-slate-500 text-[11px]">No Token</span>
+                        <span className="text-slate-500 text-[11px]">Fără Token</span>
                       )}
                     </td>
 
@@ -123,7 +120,7 @@ export default function AdminOrdersClient({ initialOrders }: { initialOrders: an
                           className="btn-secondary text-[11px] py-1.5 px-3 flex items-center gap-1.5 text-amber-400 border-amber-500/30 hover:bg-amber-500/10"
                         >
                           <RefreshCw className={`w-3 h-3 ${regeneratingId === order.id ? 'animate-spin' : ''}`} />
-                          Regenerate 72h Token
+                          Regenerează Token 72h
                         </button>
                       )}
                     </td>

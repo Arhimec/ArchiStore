@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft, CheckCircle2, XCircle, Plus, X, Image as ImageIcon, Trash2, Save, RefreshCw, LogOut } from 'lucide-react';
-import { useLanguage } from '@/lib/i18n/context';
+import { translations } from '@/lib/i18n/translations';
 
 interface PlanImageInput {
   url: string;
@@ -28,7 +28,15 @@ interface Plan {
 
 export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[] }) {
   const router = useRouter();
-  const { t } = useLanguage();
+  const t = (key: string) => {
+    const parts = key.split('.');
+    let obj: any = translations.ro;
+    for (const part of parts) {
+      obj = obj?.[part];
+    }
+    return obj || key;
+  };
+
   const [plans, setPlans] = useState<Plan[]>(initialPlans);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -49,8 +57,8 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
   const [depthM, setDepthM] = useState('16');
   const [style, setStyle] = useState('Modern');
   const [foundationType, setFoundationType] = useState('Slab');
-  const [ceilingHeight, setCeilingHeight] = useState('2.7m First / 2.7m Second');
-  const [roofPitch, setRoofPitch] = useState('35° Main');
+  const [ceilingHeight, setCeilingHeight] = useState('2.7m Parter / 2.7m Etaj');
+  const [roofPitch, setRoofPitch] = useState('35° Principală');
   const [isPublished, setIsPublished] = useState(true);
   const [featured, setFeatured] = useState(false);
 
@@ -58,12 +66,12 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
   const [images, setImages] = useState<PlanImageInput[]>([
     {
       url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
-      caption: 'Front Render',
+      caption: 'Randare Fațadă Principală',
       isFloorPlan: false,
     },
     {
       url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
-      caption: 'Floor Plan Schematic Preview',
+      caption: 'Previzualizare Plan Etaj',
       isFloorPlan: true,
     },
   ]);
@@ -87,7 +95,7 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
       .replace(/\s+/g, '-');
     setSlug(autoSlug);
     if (!pdfFileName) {
-      setPdfFileName(`${autoSlug || 'new-plan'}-construction-set.pdf`);
+      setPdfFileName(`${autoSlug || 'proiect-nou'}-construction-set.pdf`);
     }
   };
 
@@ -150,7 +158,7 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
 
       const json = await res.json();
       if (!res.ok || !json.success) {
-        throw new Error(json.message || json.error || 'Failed to create plan');
+        throw new Error(json.message || json.error || 'Adăugarea proiectului a eșuat');
       }
 
       // Add to local state & close modal
@@ -158,7 +166,7 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
       setIsModalOpen(false);
       resetForm();
     } catch (err: any) {
-      setErrorMsg(err.message || 'Failed to create plan');
+      setErrorMsg(err.message || 'Adăugarea proiectului a eșuat');
     } finally {
       setIsSubmitting(false);
     }
@@ -179,19 +187,19 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
     setDepthM('16');
     setStyle('Modern');
     setFoundationType('Slab');
-    setCeilingHeight('2.7m First / 2.7m Second');
-    setRoofPitch('35° Main');
+    setCeilingHeight('2.7m Parter / 2.7m Etaj');
+    setRoofPitch('35° Principală');
     setIsPublished(true);
     setFeatured(false);
     setImages([
       {
         url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
-        caption: 'Front Render',
+        caption: 'Randare Fațadă Principală',
         isFloorPlan: false,
       },
       {
         url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
-        caption: 'Floor Plan Schematic Preview',
+        caption: 'Previzualizare Plan Etaj',
         isFloorPlan: true,
       },
     ]);
@@ -254,7 +262,7 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
                     <div className="text-[10px] text-amber-400 font-mono">{plan.slug}</div>
                   </td>
                   <td className="p-4 font-mono">
-                    {plan.sqm} m² | {plan.bedrooms}b/{plan.bathrooms}ba
+                    {plan.sqm} m² | {plan.bedrooms} dorm/{plan.bathrooms} băi
                   </td>
                   <td className="p-4">
                     <span className="bg-slate-900 border border-slate-800 px-2 py-1 rounded text-[11px] font-mono text-slate-200">
@@ -316,7 +324,7 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
                   <input
                     type="text"
                     required
-                    placeholder="e.g. The Riviera Luxury Villa"
+                    placeholder="ex. Vilă Modernă Riviera"
                     value={title}
                     onChange={(e) => handleTitleChange(e.target.value)}
                     className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white focus:border-amber-500 focus:outline-none"
@@ -328,7 +336,7 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
                   <input
                     type="text"
                     required
-                    placeholder="e.g. riviera-luxury-villa"
+                    placeholder="ex. vila-moderna-riviera"
                     value={slug}
                     onChange={(e) => setSlug(e.target.value)}
                     className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono focus:border-amber-500 focus:outline-none"
@@ -365,7 +373,7 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
                 <textarea
                   required
                   rows={3}
-                  placeholder="Comprehensive description of the architectural plan layout, amenities, and structural features..."
+                  placeholder="Descriere detaliată a proiectului arhitectural, compartimentare, facilitați și specificații..."
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:border-amber-500 focus:outline-none"
@@ -374,7 +382,7 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
 
               {/* Characteristics & Specs Grid */}
               <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-4">
-                <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider">Project Characteristics & Dimensions</h4>
+                <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider">Caracteristici și Dimensiuni Proiect</h4>
                 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
                   <div>
@@ -480,9 +488,9 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
                       onChange={(e) => setFoundationType(e.target.value)}
                       className="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-white"
                     >
-                      <option value="Slab">Monolithic Slab</option>
-                      <option value="Crawlspace">Vented Crawlspace</option>
-                      <option value="Basement">Full Daylight Basement</option>
+                      <option value="Slab">Placă Monolită (Slab)</option>
+                      <option value="Crawlspace">Subsol Tehnic Aerisit (Crawlspace)</option>
+                      <option value="Basement">Subsol Complet (Basement)</option>
                     </select>
                   </div>
 
@@ -544,7 +552,7 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
                         <label className="text-[10px] text-slate-400 block">{t('admin.fieldImgCaption')}</label>
                         <input
                           type="text"
-                          placeholder="Exterior Front / Floor Plan"
+                          placeholder="Randare Fațadă / Plan Etaj"
                           value={img.caption}
                           onChange={(e) => handleImageChange(idx, 'caption', e.target.value)}
                           className="w-full bg-slate-950 border border-slate-800 rounded px-2.5 py-1.5 text-white"

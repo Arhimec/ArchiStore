@@ -33,10 +33,10 @@ export default async function AdminOrdersPage() {
     <div className="space-y-8 py-4">
       <div className="space-y-1 border-b border-slate-800 pb-6">
         <Link href="/admin" className="text-xs text-amber-400 hover:underline flex items-center gap-1 font-mono">
-          <ArrowLeft className="w-3 h-3" /> Back to Dashboard
+          <ArrowLeft className="w-3 h-3" /> Înapoi la Dashboard
         </Link>
-        <h1 className="text-2xl font-extrabold text-white">Customer Orders & Token Regeneration</h1>
-        <p className="text-slate-400 text-xs">Inspect purchase receipts, check download attempt counts, and issue fresh 72-hour download links.</p>
+        <h1 className="text-2xl font-extrabold text-white">Comenzi Clienți și Regenerare Token-uri</h1>
+        <p className="text-slate-400 text-xs">Inspectează achizițiile, verifică numărul de descărcări și emite link-uri noi valabile 72 de ore pentru clienți confirmați.</p>
       </div>
 
       <AdminOrdersClient initialOrders={orders} />

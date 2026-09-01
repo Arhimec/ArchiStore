@@ -3,11 +3,18 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Lock, ShieldCheck, ArrowRight, RefreshCw, KeyRound } from 'lucide-react';
-import { useLanguage } from '@/lib/i18n/context';
+import { translations } from '@/lib/i18n/translations';
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const { t } = useLanguage();
+  const t = (key: string) => {
+    const parts = key.split('.');
+    let obj: any = translations.ro;
+    for (const part of parts) {
+      obj = obj?.[part];
+    }
+    return obj || key;
+  };
 
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,14 +34,14 @@ export default function AdminLoginPage() {
 
       const json = await res.json();
       if (!res.ok || !json.success) {
-        throw new Error(json.error || json.message || 'Invalid admin password');
+        throw new Error(json.error || json.message || 'Parolă de administrator incorectă');
       }
 
       // Redirect to Admin Dashboard upon successful authentication
       router.push('/admin');
       router.refresh();
     } catch (err: any) {
-      setErrorMsg(err.message || 'Invalid admin password');
+      setErrorMsg(err.message || 'Parolă de administrator incorectă');
     } finally {
       setIsSubmitting(false);
     }
@@ -97,7 +104,7 @@ export default function AdminLoginPage() {
         </form>
 
         <div className="border-t border-slate-800/80 pt-4 text-center text-[11px] text-slate-500 font-mono">
-          <span>Cryptographically Secured PBKDF2 Database Authentication</span>
+          <span>Autentificare Securizată prin Bază de Date Criptată PBKDF2</span>
         </div>
       </div>
     </div>
