@@ -44,7 +44,7 @@ export default function AdminOrdersClient({ initialOrders }: { initialOrders: an
   return (
     <div className="space-y-6">
       {message && (
-        <div className="p-4 bg-amber-950/60 border border-amber-500/40 rounded-xl text-xs text-amber-300 font-mono">
+        <div className="p-4 bg-zinc-900 border border-zinc-700 rounded-xl text-xs text-zinc-200 font-mono">
           {message}
         </div>
       )}
@@ -52,7 +52,7 @@ export default function AdminOrdersClient({ initialOrders }: { initialOrders: an
       <div className="glass-card overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-950/80 text-slate-400 font-mono border-b border-slate-800 uppercase text-[10px]">
+            <thead className="bg-zinc-900/90 text-zinc-400 font-mono border-b border-zinc-800 uppercase text-[10px]">
               <tr>
                 <th className="p-4">ID Comandă & Dată</th>
                 <th className="p-4">Client</th>
@@ -62,7 +62,7 @@ export default function AdminOrdersClient({ initialOrders }: { initialOrders: an
                 <th className="p-4">Acțiuni</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-300">
+            <tbody className="divide-y divide-zinc-800/80 text-zinc-300">
               {orders.map((order) => {
                 const item = order.items?.[0];
                 const tokenObj = order.downloadTokens?.[0];
@@ -70,24 +70,24 @@ export default function AdminOrdersClient({ initialOrders }: { initialOrders: an
                 const isMaxedOut = tokenObj ? tokenObj.downloadCount >= tokenObj.maxDownloads : false;
 
                 return (
-                  <tr key={order.id} className="hover:bg-slate-900/50">
+                  <tr key={order.id} className="hover:bg-zinc-800/50">
                     <td className="p-4 font-mono">
                       <div className="font-bold text-white">#{order.id.substring(0, 8)}</div>
-                      <div className="text-[10px] text-slate-500">
+                      <div className="text-[10px] text-zinc-400">
                         {new Date(order.createdAt).toLocaleDateString('ro-RO')}
                       </div>
                     </td>
 
                     <td className="p-4">
-                      <div className="font-semibold text-slate-200">{order.customerEmail}</div>
-                      {order.customerName && <div className="text-[10px] text-slate-400">{order.customerName}</div>}
+                      <div className="font-semibold text-zinc-200">{order.customerEmail}</div>
+                      {order.customerName && <div className="text-[10px] text-zinc-400">{order.customerName}</div>}
                     </td>
 
-                    <td className="p-4 font-mono text-amber-400 font-semibold">
+                    <td className="p-4 font-mono text-white font-semibold">
                       {item?.plan?.title || 'Proiect Arhitectural'}
                     </td>
 
-                    <td className="p-4 font-mono font-bold text-emerald-400">
+                    <td className="p-4 font-mono font-bold text-white">
                       ${order.totalAmount.toLocaleString()}
                     </td>
 
@@ -95,20 +95,20 @@ export default function AdminOrdersClient({ initialOrders }: { initialOrders: an
                       {tokenObj ? (
                         <div className="space-y-1">
                           <div className="flex items-center gap-2">
-                            <span className="text-[11px] text-slate-200">
+                            <span className="text-[11px] text-zinc-200">
                               Descărcări: <strong className="text-white">{tokenObj.downloadCount} / {tokenObj.maxDownloads}</strong>
                             </span>
                           </div>
                           {isExpired ? (
-                            <span className="text-[10px] text-red-400 font-bold bg-red-950/60 px-2 py-0.5 rounded border border-red-500/30">EXPIRAT</span>
+                            <span className="text-[10px] text-red-300 font-bold bg-red-950/80 px-2 py-0.5 rounded border border-red-500/40">EXPIRAT</span>
                           ) : isMaxedOut ? (
-                            <span className="text-[10px] text-amber-400 font-bold bg-amber-950/60 px-2 py-0.5 rounded border border-amber-500/30">NUMĂR MAXIM ATINS</span>
+                            <span className="text-[10px] text-zinc-300 font-bold bg-zinc-800 px-2 py-0.5 rounded border border-zinc-700">NUMĂR MAXIM ATINS</span>
                           ) : (
-                            <span className="text-[10px] text-emerald-400 font-bold bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/30">ACTIV</span>
+                            <span className="text-[10px] text-white font-bold bg-zinc-800 px-2 py-0.5 rounded border border-zinc-600">ACTIV</span>
                           )}
                         </div>
                       ) : (
-                        <span className="text-slate-500 text-[11px]">Fără Token</span>
+                        <span className="text-zinc-500 text-[11px]">Fără Token</span>
                       )}
                     </td>
 
@@ -117,7 +117,7 @@ export default function AdminOrdersClient({ initialOrders }: { initialOrders: an
                         <button
                           onClick={() => handleRegenerate(order.id, item.planId)}
                           disabled={regeneratingId === order.id}
-                          className="btn-secondary text-[11px] py-1.5 px-3 flex items-center gap-1.5 text-amber-400 border-amber-500/30 hover:bg-amber-500/10"
+                          className="btn-secondary text-[11px] py-1.5 px-3 flex items-center gap-1.5 text-white border-zinc-700 hover:bg-zinc-700/50"
                         >
                           <RefreshCw className={`w-3 h-3 ${regeneratingId === order.id ? 'animate-spin' : ''}`} />
                           Regenerează Token 72h

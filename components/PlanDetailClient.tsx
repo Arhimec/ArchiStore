@@ -104,7 +104,7 @@ export default function PlanDetailClient({ plan }: { plan: Plan }) {
             <h1 className="text-3xl lg:text-4xl font-extrabold text-white tracking-tight">{plan.title}</h1>
             <p className="text-zinc-400 text-sm mt-1">{plan.description}</p>
           </div>
-          <div className="bg-zinc-900 border border-zinc-800 px-6 py-3 rounded-2xl text-right">
+          <div className="bg-zinc-800 border border-zinc-700 px-6 py-3 rounded-2xl text-right">
             <span className="block text-xs font-semibold text-zinc-400 uppercase">{t('pdp.licensePrice')}</span>
             <span className="text-3xl font-black text-white font-mono">${plan.price.toLocaleString()}</span>
           </div>
@@ -121,8 +121,8 @@ export default function PlanDetailClient({ plan }: { plan: Plan }) {
                 onClick={() => { setActiveTab('renders'); setActiveImageIndex(0); }}
                 className={`text-xs font-bold px-4 py-2 rounded-xl transition-all ${
                   activeTab === 'renders'
-                    ? 'bg-white text-black shadow-md'
-                    : 'text-zinc-400 hover:text-white bg-zinc-950 border border-zinc-800'
+                    ? 'bg-white text-zinc-950 shadow-md'
+                    : 'text-zinc-400 hover:text-white bg-zinc-900 border border-zinc-700'
                 }`}
               >
                 {t('pdp.rendersTab')} ({renders.length})
@@ -131,8 +131,8 @@ export default function PlanDetailClient({ plan }: { plan: Plan }) {
                 onClick={() => { setActiveTab('floorplans'); setActiveImageIndex(0); }}
                 className={`text-xs font-bold px-4 py-2 rounded-xl transition-all ${
                   activeTab === 'floorplans'
-                    ? 'bg-white text-black shadow-md'
-                    : 'text-zinc-400 hover:text-white bg-zinc-950 border border-zinc-800'
+                    ? 'bg-white text-zinc-950 shadow-md'
+                    : 'text-zinc-400 hover:text-white bg-zinc-900 border border-zinc-700'
                 }`}
               >
                 {t('pdp.floorplansTab')} ({floorPlans.length})
@@ -140,7 +140,7 @@ export default function PlanDetailClient({ plan }: { plan: Plan }) {
             </div>
 
             {/* Main Preview Frame */}
-            <div className="relative aspect-[16/10] bg-zinc-950 rounded-xl overflow-hidden border border-zinc-800">
+            <div className="relative aspect-[16/10] bg-zinc-900 rounded-xl overflow-hidden border border-zinc-800">
               {currentImage ? (
                 <img
                   src={
@@ -158,7 +158,7 @@ export default function PlanDetailClient({ plan }: { plan: Plan }) {
               )}
 
               {(currentImage?.isFloorPlan || activeTab === 'floorplans') && (
-                <div className="absolute top-3 right-3 bg-black/90 border border-zinc-700 text-white px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold flex items-center gap-1.5 shadow-lg">
+                <div className="absolute top-3 right-3 bg-zinc-900/90 border border-zinc-700 text-white px-3 py-1.5 rounded-lg text-[11px] font-mono font-bold flex items-center gap-1.5 shadow-lg">
                   <ShieldCheck className="w-3.5 h-3.5 text-white" />
                   {t('pdp.watermarkActive')}
                 </div>
@@ -209,27 +209,27 @@ export default function PlanDetailClient({ plan }: { plan: Plan }) {
               {t('pdp.specsTitle')}
             </h3>
             <div className="grid grid-cols-2 gap-4 text-xs font-mono">
-              <div className="bg-zinc-950 p-3 rounded-xl border border-zinc-800">
+              <div className="bg-zinc-900 p-3 rounded-xl border border-zinc-800">
                 <span className="text-zinc-500 block">{t('pdp.totalArea')}</span>
                 <strong className="text-white text-sm">{plan.sqm} SQ M</strong>
               </div>
-              <div className="bg-zinc-950 p-3 rounded-xl border border-zinc-800">
+              <div className="bg-zinc-900 p-3 rounded-xl border border-zinc-800">
                 <span className="text-zinc-500 block">{t('pdp.dimensions')}</span>
                 <strong className="text-white text-sm">{plan.widthM}m W x {plan.depthM}m D</strong>
               </div>
-              <div className="bg-zinc-950 p-3 rounded-xl border border-zinc-800">
+              <div className="bg-zinc-900 p-3 rounded-xl border border-zinc-800">
                 <span className="text-zinc-500 block">{t('pdp.bedsBaths')}</span>
                 <strong className="text-white text-sm">{plan.bedrooms} Beds / {plan.bathrooms} Baths</strong>
               </div>
-              <div className="bg-zinc-950 p-3 rounded-xl border border-zinc-800">
+              <div className="bg-zinc-900 p-3 rounded-xl border border-zinc-800">
                 <span className="text-zinc-500 block">{t('pdp.foundationType')}</span>
                 <strong className="text-white text-sm">{plan.foundationType}</strong>
               </div>
-              <div className="bg-zinc-950 p-3 rounded-xl border border-zinc-800">
+              <div className="bg-zinc-900 p-3 rounded-xl border border-zinc-800">
                 <span className="text-zinc-500 block">{t('pdp.ceilingHeights')}</span>
                 <strong className="text-zinc-200 text-xs">{plan.ceilingHeight}</strong>
               </div>
-              <div className="bg-zinc-950 p-3 rounded-xl border border-zinc-800">
+              <div className="bg-zinc-900 p-3 rounded-xl border border-zinc-800">
                 <span className="text-zinc-500 block">{t('pdp.roofPitch')}</span>
                 <strong className="text-zinc-200 text-xs">{plan.roofPitch}</strong>
               </div>
@@ -260,7 +260,7 @@ export default function PlanDetailClient({ plan }: { plan: Plan }) {
                     placeholder="John Doe"
                     value={customerName}
                     onChange={(e) => setCustomerName(e.target.value)}
-                    className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:border-zinc-500 focus:outline-none"
+                    className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:border-zinc-500 focus:outline-none"
                   />
                 </div>
 
@@ -274,7 +274,7 @@ export default function PlanDetailClient({ plan }: { plan: Plan }) {
                     placeholder="architect@example.com"
                     value={customerEmail}
                     onChange={(e) => setCustomerEmail(e.target.value)}
-                    className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:border-zinc-500 focus:outline-none"
+                    className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-3.5 py-2.5 text-sm text-white focus:border-zinc-500 focus:outline-none"
                   />
                   <span className="text-[11px] text-zinc-400 mt-1 block">
                     {t('pdp.emailHelp')}
@@ -283,7 +283,7 @@ export default function PlanDetailClient({ plan }: { plan: Plan }) {
               </div>
 
               {/* MANDATORY LEGAL DISCLAIMER CHECKBOX */}
-              <div className="bg-zinc-950 p-4 rounded-xl border border-zinc-800 space-y-3">
+              <div className="bg-zinc-900 p-4 rounded-xl border border-zinc-700 space-y-3">
                 <div className="flex items-start gap-3">
                   <button
                     type="button"
@@ -323,7 +323,7 @@ export default function PlanDetailClient({ plan }: { plan: Plan }) {
                   t('pdp.submitting')
                 ) : disclaimerChecked ? (
                   <>
-                    <Lock className="w-4 h-4 text-black" />
+                    <Lock className="w-4 h-4 text-zinc-950" />
                     {t('pdp.buyNow')} • ${plan.price.toLocaleString()}
                   </>
                 ) : (

@@ -29,9 +29,9 @@ export default function HomeClient({ featuredPlans }: { featuredPlans: Plan[] })
     <div className="space-y-16 py-4">
       {/* Hero Banner Section */}
       <section className="glass-card-accent p-8 lg:p-14 relative overflow-hidden">
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-zinc-800/30 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -top-24 -right-24 w-96 h-96 bg-zinc-700/20 rounded-full blur-3xl pointer-events-none" />
         <div className="relative z-10 max-w-3xl space-y-6">
-          <div className="inline-flex items-center gap-2 bg-zinc-900 border border-zinc-800 px-3.5 py-1.5 rounded-full text-xs font-semibold text-zinc-300">
+          <div className="inline-flex items-center gap-2 bg-zinc-800 border border-zinc-700 px-3.5 py-1.5 rounded-full text-xs font-semibold text-zinc-200">
             <Sparkles className="w-3.5 h-3.5 text-white" />
             {t('hero.badge')}
           </div>
@@ -45,7 +45,7 @@ export default function HomeClient({ featuredPlans }: { featuredPlans: Plan[] })
           <div className="flex flex-wrap items-center gap-4 pt-2">
             <Link href="/catalog" className="btn-primary flex items-center gap-2 text-base px-8 py-3.5">
               {t('hero.browseBtn')}
-              <ArrowRight className="w-5 h-5 text-black" />
+              <ArrowRight className="w-5 h-5 text-zinc-950" />
             </Link>
             <Link href="/catalog?style=Farmhouse" className="btn-secondary text-base px-6 py-3.5">
               {t('hero.farmhouseBtn')}
@@ -53,7 +53,7 @@ export default function HomeClient({ featuredPlans }: { featuredPlans: Plan[] })
           </div>
 
           {/* Quick Stats Bar */}
-          <div className="grid grid-cols-3 gap-6 border-t border-zinc-800/80 pt-8 mt-8 text-zinc-300">
+          <div className="grid grid-cols-3 gap-6 border-t border-zinc-700/80 pt-8 mt-8 text-zinc-300">
             <div>
               <span className="block text-2xl lg:text-3xl font-extrabold text-white">{t('hero.stat1Num')}</span>
               <span className="text-xs text-zinc-400">{t('hero.stat1Text')}</span>
@@ -86,7 +86,7 @@ export default function HomeClient({ featuredPlans }: { featuredPlans: Plan[] })
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {featuredPlans.map((plan) => (
             <div key={plan.id} className="glass-card overflow-hidden group flex flex-col justify-between">
-              <div className="relative aspect-[16/10] overflow-hidden bg-zinc-950">
+              <div className="relative aspect-[16/10] overflow-hidden bg-zinc-900">
                 {plan.images?.[0] ? (
                   <img
                     src={plan.images[0].url}
@@ -98,10 +98,10 @@ export default function HomeClient({ featuredPlans }: { featuredPlans: Plan[] })
                     <Compass className="w-12 h-12" />
                   </div>
                 )}
-                <div className="absolute top-3 left-3 bg-black/90 backdrop-blur-md px-3 py-1 rounded-lg border border-zinc-800 text-xs font-semibold text-zinc-200">
+                <div className="absolute top-3 left-3 bg-zinc-900/90 backdrop-blur-md px-3 py-1 rounded-lg border border-zinc-700 text-xs font-semibold text-zinc-200">
                   {plan.style}
                 </div>
-                <div className="absolute bottom-3 right-3 bg-white text-black font-black px-3 py-1 rounded-lg text-sm shadow-md">
+                <div className="absolute bottom-3 right-3 bg-white text-zinc-950 font-black px-3 py-1 rounded-lg text-sm shadow-md">
                   ${plan.price.toLocaleString()}
                 </div>
               </div>
@@ -116,7 +116,7 @@ export default function HomeClient({ featuredPlans }: { featuredPlans: Plan[] })
                   </p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-2 text-xs text-zinc-300 bg-zinc-950 p-3 rounded-xl border border-zinc-800/80 font-mono">
+                <div className="grid grid-cols-2 gap-2 text-xs text-zinc-300 bg-zinc-900/80 p-3 rounded-xl border border-zinc-700/70 font-mono">
                   <div><span className="text-zinc-500">{t('catalog.sqmBadge')}:</span> <strong className="text-white">{plan.sqm} m²</strong></div>
                   <div><span className="text-zinc-500">{t('catalog.bedsBadge')}:</span> <strong className="text-white">{plan.bedrooms}</strong></div>
                   <div><span className="text-zinc-500">{t('catalog.bathsBadge')}:</span> <strong className="text-white">{plan.bathrooms}</strong></div>

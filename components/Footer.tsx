@@ -8,7 +8,7 @@ export default function Footer() {
   const { t } = useLanguage();
 
   return (
-    <footer className="bg-black border-t border-zinc-800/80 mt-16 px-4 lg:px-12 py-12 text-zinc-400 text-sm">
+    <footer className="bg-zinc-950 border-t border-zinc-800 mt-16 px-4 lg:px-12 py-12 text-zinc-400 text-sm">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
         <div className="space-y-4 md:col-span-2">
           <div className="flex items-center gap-2">
@@ -51,7 +51,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto border-t border-zinc-800/60 pt-6 flex flex-col md:flex-row items-center justify-between text-xs text-zinc-500 gap-4">
+      <div className="max-w-7xl mx-auto border-t border-zinc-800/80 pt-6 flex flex-col md:flex-row items-center justify-between text-xs text-zinc-500 gap-4">
         <p>© {new Date().getFullYear()} {t('footer.copyright')}</p>
         <p>{t('footer.techStack')}</p>
       </div>

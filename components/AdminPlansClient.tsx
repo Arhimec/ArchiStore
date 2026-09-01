@@ -208,13 +208,13 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
   return (
     <div className="space-y-8 py-4">
       {/* Top Action Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-800 pb-6">
         <div className="space-y-1">
-          <Link href="/admin" className="text-xs text-amber-400 hover:underline flex items-center gap-1 font-mono">
+          <Link href="/admin" className="text-xs text-zinc-300 hover:underline flex items-center gap-1 font-mono">
             <ArrowLeft className="w-3 h-3" /> {t('admin.backDashboard')}
           </Link>
           <h1 className="text-2xl font-extrabold text-white">{t('admin.catalogMgmtTitle')}</h1>
-          <p className="text-slate-400 text-xs">{t('admin.catalogMgmtSubtitle')}</p>
+          <p className="text-zinc-400 text-xs">{t('admin.catalogMgmtSubtitle')}</p>
         </div>
 
         <div className="flex items-center gap-3">
@@ -222,15 +222,15 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
             onClick={() => setIsModalOpen(true)}
             className="btn-primary text-xs py-2.5 px-4 flex items-center gap-2 font-bold whitespace-nowrap"
           >
-            <Plus className="w-4 h-4 stroke-[3]" />
+            <Plus className="w-4 h-4 stroke-[3] text-zinc-950" />
             {t('admin.addPlanBtn')}
           </button>
 
           <button
             onClick={handleLogout}
-            className="text-xs font-semibold text-slate-400 hover:text-red-400 bg-slate-900 border border-slate-800 hover:border-red-500/40 px-3.5 py-2.5 rounded-xl transition-all flex items-center gap-1.5"
+            className="text-xs font-semibold text-zinc-400 hover:text-white bg-zinc-800 border border-zinc-700 px-3.5 py-2.5 rounded-xl transition-all flex items-center gap-1.5"
           >
-            <LogOut className="w-4 h-4 text-red-400" />
+            <LogOut className="w-4 h-4 text-zinc-400" />
             {t('admin.logoutBtn')}
           </button>
         </div>
@@ -238,13 +238,13 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
 
       {/* Plans Table */}
       <div className="glass-card overflow-hidden">
-        <div className="p-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
-          <span className="text-xs font-mono font-bold text-slate-300">{t('admin.totalListings')}: {plans.length}</span>
+        <div className="p-4 bg-zinc-900 border-b border-zinc-800 flex items-center justify-between">
+          <span className="text-xs font-mono font-bold text-zinc-300">{t('admin.totalListings')}: {plans.length}</span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-950/80 text-slate-400 font-mono border-b border-slate-800 uppercase text-[10px]">
+            <thead className="bg-zinc-900/80 text-zinc-400 font-mono border-b border-zinc-800 uppercase text-[10px]">
               <tr>
                 <th className="p-4">{t('admin.colTitleSlug')}</th>
                 <th className="p-4">{t('admin.colSpecs')}</th>
@@ -254,35 +254,35 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
                 <th className="p-4">{t('admin.colStatus')}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-300">
+            <tbody className="divide-y divide-zinc-800/80 text-zinc-300">
               {plans.map((plan) => (
-                <tr key={plan.id} className="hover:bg-slate-900/50">
+                <tr key={plan.id} className="hover:bg-zinc-800/50">
                   <td className="p-4 font-semibold text-white">
                     <div>{plan.title}</div>
-                    <div className="text-[10px] text-amber-400 font-mono">{plan.slug}</div>
+                    <div className="text-[10px] text-zinc-400 font-mono">{plan.slug}</div>
                   </td>
                   <td className="p-4 font-mono">
                     {plan.sqm} m² | {plan.bedrooms} dorm/{plan.bathrooms} băi
                   </td>
                   <td className="p-4">
-                    <span className="bg-slate-900 border border-slate-800 px-2 py-1 rounded text-[11px] font-mono text-slate-200">
+                    <span className="bg-zinc-900 border border-zinc-700 px-2 py-1 rounded text-[11px] font-mono text-zinc-200">
                       {plan.style} • {plan.foundationType}
                     </span>
                   </td>
-                  <td className="p-4 font-bold text-amber-400 font-mono">
+                  <td className="p-4 font-bold text-white font-mono">
                     ${plan.price.toLocaleString()}
                   </td>
-                  <td className="p-4 font-mono text-[11px] text-slate-400">
+                  <td className="p-4 font-mono text-[11px] text-zinc-400">
                     {plan.pdfFileName}
                   </td>
                   <td className="p-4">
                     {plan.isPublished ? (
-                      <span className="inline-flex items-center gap-1 text-[11px] text-emerald-400 font-semibold bg-emerald-950/50 border border-emerald-500/30 px-2.5 py-1 rounded-full">
-                        <CheckCircle2 className="w-3 h-3" /> {t('admin.statusPublished')}
+                      <span className="inline-flex items-center gap-1 text-[11px] text-white font-semibold bg-zinc-800 border border-zinc-700 px-2.5 py-1 rounded-full">
+                        <CheckCircle2 className="w-3 h-3 text-white" /> {t('admin.statusPublished')}
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 text-[11px] text-slate-400 font-semibold bg-slate-950 border border-slate-800 px-2.5 py-1 rounded-full">
-                        <XCircle className="w-3 h-3" /> {t('admin.statusDraft')}
+                      <span className="inline-flex items-center gap-1 text-[11px] text-zinc-400 font-semibold bg-zinc-900 border border-zinc-800 px-2.5 py-1 rounded-full">
+                        <XCircle className="w-3 h-3 text-zinc-500" /> {t('admin.statusDraft')}
                       </span>
                     )}
                   </td>
@@ -295,16 +295,16 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
 
       {/* CREATE PLAN MODAL */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
-          <div className="glass-card max-w-3xl w-full my-8 p-6 lg:p-8 space-y-6 max-h-[90vh] overflow-y-auto border-amber-500/40">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div className="fixed inset-0 z-50 bg-zinc-950/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+          <div className="glass-card max-w-3xl w-full my-8 p-6 lg:p-8 space-y-6 max-h-[90vh] overflow-y-auto border-zinc-700">
+            <div className="flex items-center justify-between border-b border-zinc-800 pb-4">
               <div>
                 <h3 className="text-xl font-bold text-white">{t('admin.modalTitle')}</h3>
-                <p className="text-slate-400 text-xs mt-0.5">{t('admin.modalSubtitle')}</p>
+                <p className="text-zinc-400 text-xs mt-0.5">{t('admin.modalSubtitle')}</p>
               </div>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="text-slate-400 hover:text-white p-1 rounded-lg border border-slate-800 bg-slate-900"
+                className="text-zinc-400 hover:text-white p-1 rounded-lg border border-zinc-800 bg-zinc-900"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -320,157 +320,157 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
               {/* Basic Fields */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                 <div>
-                  <label className="text-slate-300 font-semibold block mb-1">{t('admin.fieldTitle')} *</label>
+                  <label className="text-zinc-300 font-semibold block mb-1">{t('admin.fieldTitle')} *</label>
                   <input
                     type="text"
                     required
                     placeholder="ex. Vilă Modernă Riviera"
                     value={title}
                     onChange={(e) => handleTitleChange(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white focus:border-amber-500 focus:outline-none"
+                    className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-3 py-2 text-white focus:border-zinc-500 focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="text-slate-300 font-semibold block mb-1">{t('admin.fieldSlug')} *</label>
+                  <label className="text-zinc-300 font-semibold block mb-1">{t('admin.fieldSlug')} *</label>
                   <input
                     type="text"
                     required
                     placeholder="ex. vila-moderna-riviera"
                     value={slug}
                     onChange={(e) => setSlug(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono focus:border-amber-500 focus:outline-none"
+                    className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-3 py-2 text-white font-mono focus:border-zinc-500 focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="text-slate-300 font-semibold block mb-1">{t('admin.fieldPrice')} *</label>
+                  <label className="text-zinc-300 font-semibold block mb-1">{t('admin.fieldPrice')} *</label>
                   <input
                     type="number"
                     required
                     step="0.01"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono focus:border-amber-500 focus:outline-none"
+                    className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-3 py-2 text-white font-mono focus:border-zinc-500 focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="text-slate-300 font-semibold block mb-1">{t('admin.fieldPdf')} *</label>
+                  <label className="text-zinc-300 font-semibold block mb-1">{t('admin.fieldPdf')} *</label>
                   <input
                     type="text"
                     required
                     placeholder="riviera-construction-set.pdf"
                     value={pdfFileName}
                     onChange={(e) => setPdfFileName(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono focus:border-amber-500 focus:outline-none"
+                    className="w-full bg-zinc-900 border border-zinc-700 rounded-xl px-3 py-2 text-white font-mono focus:border-zinc-500 focus:outline-none"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-slate-300 font-semibold block mb-1 text-xs">{t('admin.fieldDesc')} *</label>
+                <label className="text-zinc-300 font-semibold block mb-1 text-xs">{t('admin.fieldDesc')} *</label>
                 <textarea
                   required
                   rows={3}
                   placeholder="Descriere detaliată a proiectului arhitectural, compartimentare, facilitați și specificații..."
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:border-amber-500 focus:outline-none"
+                  className="w-full bg-zinc-900 border border-zinc-700 rounded-xl p-3 text-xs text-white focus:border-zinc-500 focus:outline-none"
                 />
               </div>
 
               {/* Characteristics & Specs Grid */}
-              <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-4">
-                <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider">Caracteristici și Dimensiuni Proiect</h4>
+              <div className="bg-zinc-900 p-4 rounded-xl border border-zinc-800 space-y-4">
+                <h4 className="text-xs font-bold text-white uppercase tracking-wider">Caracteristici și Dimensiuni Proiect</h4>
                 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
                   <div>
-                    <label className="text-slate-400 block mb-1">{t('admin.fieldSqm')}</label>
+                    <label className="text-zinc-400 block mb-1">{t('admin.fieldSqm')}</label>
                     <input
                       type="number"
                       required
                       value={sqm}
                       onChange={(e) => setSqm(e.target.value)}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-white font-mono"
+                      className="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-2 text-white font-mono"
                     />
                   </div>
 
                   <div>
-                    <label className="text-slate-400 block mb-1">{t('admin.fieldBeds')}</label>
+                    <label className="text-zinc-400 block mb-1">{t('admin.fieldBeds')}</label>
                     <input
                       type="number"
                       required
                       value={bedrooms}
                       onChange={(e) => setBedrooms(e.target.value)}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-white font-mono"
+                      className="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-2 text-white font-mono"
                     />
                   </div>
 
                   <div>
-                    <label className="text-slate-400 block mb-1">{t('admin.fieldBaths')}</label>
+                    <label className="text-zinc-400 block mb-1">{t('admin.fieldBaths')}</label>
                     <input
                       type="number"
                       required
                       step="0.5"
                       value={bathrooms}
                       onChange={(e) => setBathrooms(e.target.value)}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-white font-mono"
+                      className="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-2 text-white font-mono"
                     />
                   </div>
 
                   <div>
-                    <label className="text-slate-400 block mb-1">{t('admin.fieldStories')}</label>
+                    <label className="text-zinc-400 block mb-1">{t('admin.fieldStories')}</label>
                     <input
                       type="number"
                       required
                       value={stories}
                       onChange={(e) => setStories(e.target.value)}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-white font-mono"
+                      className="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-2 text-white font-mono"
                     />
                   </div>
 
                   <div>
-                    <label className="text-slate-400 block mb-1">{t('admin.fieldGarages')}</label>
+                    <label className="text-zinc-400 block mb-1">{t('admin.fieldGarages')}</label>
                     <input
                       type="number"
                       required
                       value={garageSpaces}
                       onChange={(e) => setGarageSpaces(e.target.value)}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-white font-mono"
+                      className="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-2 text-white font-mono"
                     />
                   </div>
 
                   <div>
-                    <label className="text-slate-400 block mb-1">{t('admin.fieldWidth')}</label>
+                    <label className="text-zinc-400 block mb-1">{t('admin.fieldWidth')}</label>
                     <input
                       type="number"
                       required
                       step="0.1"
                       value={widthM}
                       onChange={(e) => setWidthM(e.target.value)}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-white font-mono"
+                      className="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-2 text-white font-mono"
                     />
                   </div>
 
                   <div>
-                    <label className="text-slate-400 block mb-1">{t('admin.fieldDepth')}</label>
+                    <label className="text-zinc-400 block mb-1">{t('admin.fieldDepth')}</label>
                     <input
                       type="number"
                       required
                       step="0.1"
                       value={depthM}
                       onChange={(e) => setDepthM(e.target.value)}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-white font-mono"
+                      className="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-2 text-white font-mono"
                     />
                   </div>
 
                   <div>
-                    <label className="text-slate-400 block mb-1">{t('admin.fieldStyle')}</label>
+                    <label className="text-zinc-400 block mb-1">{t('admin.fieldStyle')}</label>
                     <select
                       value={style}
                       onChange={(e) => setStyle(e.target.value)}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-white"
+                      className="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-2 text-white"
                     >
                       <option value="Farmhouse">Farmhouse</option>
                       <option value="Craftsman">Craftsman</option>
@@ -482,11 +482,11 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs pt-2">
                   <div>
-                    <label className="text-slate-400 block mb-1">{t('admin.fieldFoundation')}</label>
+                    <label className="text-zinc-400 block mb-1">{t('admin.fieldFoundation')}</label>
                     <select
                       value={foundationType}
                       onChange={(e) => setFoundationType(e.target.value)}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-white"
+                      className="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-2 text-white"
                     >
                       <option value="Slab">Placă Monolită (Slab)</option>
                       <option value="Crawlspace">Subsol Tehnic Aerisit (Crawlspace)</option>
@@ -495,39 +495,39 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
                   </div>
 
                   <div>
-                    <label className="text-slate-400 block mb-1">{t('admin.fieldCeiling')}</label>
+                    <label className="text-zinc-400 block mb-1">{t('admin.fieldCeiling')}</label>
                     <input
                       type="text"
                       required
                       value={ceilingHeight}
                       onChange={(e) => setCeilingHeight(e.target.value)}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-white"
+                      className="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-2 text-white"
                     />
                   </div>
 
                   <div>
-                    <label className="text-slate-400 block mb-1">{t('admin.fieldRoof')}</label>
+                    <label className="text-zinc-400 block mb-1">{t('admin.fieldRoof')}</label>
                     <input
                       type="text"
                       required
                       value={roofPitch}
                       onChange={(e) => setRoofPitch(e.target.value)}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-lg p-2 text-white"
+                      className="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-2 text-white"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Dynamic Pictures & Floor Plans Manager */}
-              <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-4">
-                <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-                  <span className="text-xs font-bold text-amber-400 uppercase flex items-center gap-1.5">
-                    <ImageIcon className="w-4 h-4" /> {t('admin.picturesSection')}
+              <div className="bg-zinc-900 p-4 rounded-xl border border-zinc-800 space-y-4">
+                <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
+                  <span className="text-xs font-bold text-white uppercase flex items-center gap-1.5">
+                    <ImageIcon className="w-4 h-4 text-white" /> {t('admin.picturesSection')}
                   </span>
                   <button
                     type="button"
                     onClick={handleAddImageRow}
-                    className="text-xs text-amber-400 hover:underline flex items-center gap-1 font-mono"
+                    className="text-xs text-zinc-300 hover:underline flex items-center gap-1 font-mono"
                   >
                     {t('admin.addImageBtn')}
                   </button>
@@ -535,37 +535,37 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
 
                 <div className="space-y-3">
                   {images.map((img, idx) => (
-                    <div key={idx} className="flex flex-col md:flex-row items-start md:items-center gap-3 bg-slate-900 p-3 rounded-lg border border-slate-800 text-xs">
+                    <div key={idx} className="flex flex-col md:flex-row items-start md:items-center gap-3 bg-zinc-950 p-3 rounded-lg border border-zinc-800 text-xs">
                       <div className="flex-1 w-full">
-                        <label className="text-[10px] text-slate-400 block">{t('admin.fieldImgUrl')}</label>
+                        <label className="text-[10px] text-zinc-400 block">{t('admin.fieldImgUrl')}</label>
                         <input
                           type="url"
                           required
                           placeholder="https://images.unsplash.com/..."
                           value={img.url}
                           onChange={(e) => handleImageChange(idx, 'url', e.target.value)}
-                          className="w-full bg-slate-950 border border-slate-800 rounded px-2.5 py-1.5 text-white font-mono"
+                          className="w-full bg-zinc-900 border border-zinc-700 rounded px-2.5 py-1.5 text-white font-mono"
                         />
                       </div>
 
                       <div className="w-full md:w-48">
-                        <label className="text-[10px] text-slate-400 block">{t('admin.fieldImgCaption')}</label>
+                        <label className="text-[10px] text-zinc-400 block">{t('admin.fieldImgCaption')}</label>
                         <input
                           type="text"
                           placeholder="Randare Fațadă / Plan Etaj"
                           value={img.caption}
                           onChange={(e) => handleImageChange(idx, 'caption', e.target.value)}
-                          className="w-full bg-slate-950 border border-slate-800 rounded px-2.5 py-1.5 text-white"
+                          className="w-full bg-zinc-900 border border-zinc-700 rounded px-2.5 py-1.5 text-white"
                         />
                       </div>
 
                       <div className="flex items-center gap-2 pt-3 md:pt-4">
-                        <label className="flex items-center gap-1.5 cursor-pointer text-slate-300 text-[11px] whitespace-nowrap">
+                        <label className="flex items-center gap-1.5 cursor-pointer text-zinc-300 text-[11px] whitespace-nowrap">
                           <input
                             type="checkbox"
                             checked={img.isFloorPlan}
                             onChange={(e) => handleImageChange(idx, 'isFloorPlan', e.target.checked)}
-                            className="rounded border-slate-700 bg-slate-950 text-amber-500"
+                            className="rounded border-zinc-700 bg-zinc-950 text-white"
                           />
                           {t('admin.fieldIsFloorPlan')}
                         </label>
@@ -586,13 +586,13 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
               </div>
 
               {/* Status Toggles */}
-              <div className="flex items-center gap-6 text-xs text-slate-300">
+              <div className="flex items-center gap-6 text-xs text-zinc-300">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={isPublished}
                     onChange={(e) => setIsPublished(e.target.checked)}
-                    className="w-4 h-4 rounded border-slate-700 bg-slate-950 text-amber-500"
+                    className="w-4 h-4 rounded border-zinc-700 bg-zinc-950 text-white"
                   />
                   <span>{t('admin.fieldPublished')}</span>
                 </label>
@@ -602,14 +602,14 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
                     type="checkbox"
                     checked={featured}
                     onChange={(e) => setFeatured(e.target.checked)}
-                    className="w-4 h-4 rounded border-slate-700 bg-slate-950 text-amber-500"
+                    className="w-4 h-4 rounded border-zinc-700 bg-zinc-950 text-white"
                   />
                   <span>{t('admin.fieldFeatured')}</span>
                 </label>
               </div>
 
               {/* Submit Buttons */}
-              <div className="flex items-center justify-end gap-3 border-t border-slate-800 pt-4">
+              <div className="flex items-center justify-end gap-3 border-t border-zinc-800 pt-4">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
@@ -624,12 +624,12 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
                 >
                   {isSubmitting ? (
                     <>
-                      <RefreshCw className="w-4 h-4 animate-spin text-slate-950" />
+                      <RefreshCw className="w-4 h-4 animate-spin text-zinc-950" />
                       {t('admin.saving')}
                     </>
                   ) : (
                     <>
-                      <Save className="w-4 h-4 text-slate-950" />
+                      <Save className="w-4 h-4 text-zinc-950" />
                       {t('admin.savePlan')}
                     </>
                   )}

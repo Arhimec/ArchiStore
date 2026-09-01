@@ -81,7 +81,7 @@ export default function OrderSuccessClient() {
         </p>
 
         {sessionId && (
-          <div className="inline-block bg-zinc-950 px-4 py-1.5 rounded-lg border border-zinc-800 text-xs font-mono text-zinc-400">
+          <div className="inline-block bg-zinc-900 px-4 py-1.5 rounded-lg border border-zinc-700 text-xs font-mono text-zinc-300">
             {t('success.sessionId')}: <span className="text-white font-bold">{sessionId}</span>
           </div>
         )}
@@ -94,7 +94,7 @@ export default function OrderSuccessClient() {
             <FileCheck2 className="w-5 h-5 text-white" />
             {t('success.tokenTitle')}
           </div>
-          <span className="text-xs bg-zinc-900 border border-zinc-800 text-zinc-200 font-mono px-3 py-1 rounded-full">
+          <span className="text-xs bg-zinc-900 border border-zinc-700 text-zinc-200 font-mono px-3 py-1 rounded-full">
             {t('success.tokenBadge')}
           </span>
         </div>
@@ -105,10 +105,10 @@ export default function OrderSuccessClient() {
           </div>
         ) : downloadUrl ? (
           <div className="space-y-4">
-            <div className="bg-zinc-950 p-4 rounded-xl border border-zinc-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="bg-zinc-900 p-4 rounded-xl border border-zinc-700 flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div>
-                <span className="text-xs font-mono text-zinc-500 block">{t('success.signedUrl')}</span>
-                <span className="text-xs font-mono text-zinc-300 break-all">{downloadUrl}</span>
+                <span className="text-xs font-mono text-zinc-400 block">{t('success.signedUrl')}</span>
+                <span className="text-xs font-mono text-zinc-200 break-all">{downloadUrl}</span>
               </div>
 
               <a
@@ -116,24 +116,24 @@ export default function OrderSuccessClient() {
                 download
                 className="btn-primary py-3 px-6 text-sm flex items-center justify-center gap-2 whitespace-nowrap"
               >
-                <Download className="w-4 h-4 text-black" />
+                <Download className="w-4 h-4 text-zinc-950" />
                 {t('success.downloadBtn')}
               </a>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-zinc-400">
-              <div className="flex items-center gap-2 bg-zinc-950 p-3 rounded-lg border border-zinc-800">
+              <div className="flex items-center gap-2 bg-zinc-900 p-3 rounded-lg border border-zinc-800">
                 <Clock className="w-4 h-4 text-white" />
                 <span>{t('success.expirationNote')}</span>
               </div>
-              <div className="flex items-center gap-2 bg-zinc-950 p-3 rounded-lg border border-zinc-800">
+              <div className="flex items-center gap-2 bg-zinc-900 p-3 rounded-lg border border-zinc-800">
                 <ShieldCheck className="w-4 h-4 text-white" />
                 <span>{t('success.auditNote')}</span>
               </div>
             </div>
           </div>
         ) : (
-          <div className="p-4 bg-zinc-950 border border-zinc-800 rounded-xl text-xs text-zinc-300">
+          <div className="p-4 bg-zinc-900 border border-zinc-700 rounded-xl text-xs text-zinc-300">
             Token is initializing. You can access your plan via the Admin Dashboard or contact support with your Session ID.
           </div>
         )}
