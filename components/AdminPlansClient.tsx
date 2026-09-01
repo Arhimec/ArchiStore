@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, CheckCircle2, XCircle, Plus, X, Image as ImageIcon, Trash2, Save, RefreshCw } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { ArrowLeft, CheckCircle2, XCircle, Plus, X, Image as ImageIcon, Trash2, Save, RefreshCw, LogOut } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n/context';
 
 interface PlanImageInput {
@@ -26,6 +27,7 @@ interface Plan {
 }
 
 export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[] }) {
+  const router = useRouter();
   const { t } = useLanguage();
   const [plans, setPlans] = useState<Plan[]>(initialPlans);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -65,6 +67,16 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
       isFloorPlan: true,
     },
   ]);
+
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/admin/logout', { method: 'POST' });
+      router.push('/admin/login');
+      router.refresh();
+    } catch (err) {
+      console.error('Logout error:', err);
+    }
+  };
 
   const handleTitleChange = (val: string) => {
     setTitle(val);
@@ -132,7 +144,6 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-admin-passcode': 'admin1234',
         },
         body: JSON.stringify(payload),
       });
@@ -198,13 +209,23 @@ export default function AdminPlansClient({ plans: initialPlans }: { plans: Plan[
           <p className="text-slate-400 text-xs">{t('admin.catalogMgmtSubtitle')}</p>
         </div>
 
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="btn-primary text-xs py-3 px-5 flex items-center gap-2 font-bold whitespace-nowrap self-start md:self-auto"
-        >
-          <Plus className="w-4 h-4 stroke-[3]" />
-          {t('admin.addPlanBtn')}
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="btn-primary text-xs py-2.5 px-4 flex items-center gap-2 font-bold whitespace-nowrap"
+          >
+            <Plus className="w-4 h-4 stroke-[3]" />
+            {t('admin.addPlanBtn')}
+          </button>
+
+          <button
+            onClick={handleLogout}
+            className="text-xs font-semibold text-slate-400 hover:text-red-400 bg-slate-900 border border-slate-800 hover:border-red-500/40 px-3.5 py-2.5 rounded-xl transition-all flex items-center gap-1.5"
+          >
+            <LogOut className="w-4 h-4 text-red-400" />
+            {t('admin.logoutBtn')}
+          </button>
+        </div>
       </div>
 
       {/* Plans Table */}

@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { LayoutDashboard, FileSpreadsheet, ShoppingBag, ShieldAlert, ArrowRight, DollarSign, DownloadCloud } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { LayoutDashboard, FileSpreadsheet, ShoppingBag, ShieldAlert, ArrowRight, DollarSign, DownloadCloud, LogOut } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n/context';
 
 interface AdminMetrics {
@@ -13,7 +14,18 @@ interface AdminMetrics {
 }
 
 export default function AdminDashboardClient({ metrics }: { metrics: AdminMetrics }) {
+  const router = useRouter();
   const { t } = useLanguage();
+
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/admin/logout', { method: 'POST' });
+      router.push('/admin/login');
+      router.refresh();
+    } catch (err) {
+      console.error('Logout error:', err);
+    }
+  };
 
   return (
     <div className="space-y-8 py-4">
@@ -36,6 +48,13 @@ export default function AdminDashboardClient({ metrics }: { metrics: AdminMetric
             <ShoppingBag className="w-4 h-4" />
             {t('admin.viewOrdersBtn')}
           </Link>
+          <button
+            onClick={handleLogout}
+            className="text-xs font-semibold text-slate-400 hover:text-red-400 bg-slate-900 border border-slate-800 hover:border-red-500/40 px-3.5 py-2.5 rounded-xl transition-all flex items-center gap-1.5"
+          >
+            <LogOut className="w-4 h-4 text-red-400" />
+            {t('admin.logoutBtn')}
+          </button>
         </div>
       </div>
 

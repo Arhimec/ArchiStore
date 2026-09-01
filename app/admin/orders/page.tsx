@@ -1,4 +1,7 @@
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
+import { verifyAdminSessionToken } from '@/lib/auth';
 import Link from 'next/link';
 import AdminOrdersClient from '@/components/AdminOrdersClient';
 import { ArrowLeft } from 'lucide-react';
@@ -6,6 +9,13 @@ import { ArrowLeft } from 'lucide-react';
 export const revalidate = 0;
 
 export default async function AdminOrdersPage() {
+  const cookieStore = await cookies();
+  const sessionToken = cookieStore.get('admin_session')?.value;
+
+  if (!sessionToken || !verifyAdminSessionToken(sessionToken)) {
+    redirect('/admin/login');
+  }
+
   let orders: any[] = [];
   try {
     orders = await prisma.order.findMany({

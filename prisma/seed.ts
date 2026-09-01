@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import fs from 'fs';
 import path from 'path';
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
+import { hashPassword } from '../lib/password';
 
 const prisma = new PrismaClient();
 
@@ -113,6 +114,18 @@ async function main() {
   await prisma.order.deleteMany({});
   await prisma.planImage.deleteMany({});
   await prisma.plan.deleteMany({});
+  await prisma.adminUser.deleteMany({});
+
+  // Seed Admin Account with Encrypted Password
+  const adminPassword = process.env.ADMIN_PASSWORD || 'DoamneAjuta2026';
+  const { hash: passwordHash, salt } = hashPassword(adminPassword);
+  await prisma.adminUser.create({
+    data: {
+      username: 'admin',
+      passwordHash,
+      salt,
+    },
+  });
 
   // Plan 1: Modern Farmhouse
   const plan1 = await prisma.plan.create({

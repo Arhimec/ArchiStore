@@ -1,10 +1,20 @@
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
+import { verifyAdminSessionToken } from '@/lib/auth';
 import Link from 'next/link';
 import { ArrowLeft, ShieldAlert, DownloadCloud } from 'lucide-react';
 
 export const revalidate = 0;
 
 export default async function AdminAuditLogsPage() {
+  const cookieStore = await cookies();
+  const sessionToken = cookieStore.get('admin_session')?.value;
+
+  if (!sessionToken || !verifyAdminSessionToken(sessionToken)) {
+    redirect('/admin/login');
+  }
+
   let auditLogs: any[] = [];
   try {
     auditLogs = await prisma.auditLog.findMany({
